@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+
+Route::get('/home', 'TapelController@index')->name('home');
+
+Route::get('/', 'TapelController@index')->name('index');
+Route::post('/store', 'TapelController@store')->name('store');
+Route::get('/{id}/edit', 'TapelController@edit')->name('edit');
+Route::put('/update', 'TapelController@update')->name('update');
+Route::post('delete', 'TapelController@delete')->name('delete');
+Route::post('publish', 'TapelController@publish')->name('publish');
+
