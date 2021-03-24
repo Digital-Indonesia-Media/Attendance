@@ -15,11 +15,11 @@
                     @endif
 
                     <div class="content">
-						<form action="{{ route('update') }}" method="POST">
+						<form action="{{ route('mapel-update') }}" method="POST">
 							@csrf
 							@method('PUT')
 							<input type="hidden" name="id" value="{{ $data->id }}">
-							<input type="text" name="tapel" value="{{ $data->tapel }}">
+							<input type="text" name="mapel" value="{{ $data->mapel }}">
 							<button class="btn btn-success">Update</button>
 						</form>
 					</div>
