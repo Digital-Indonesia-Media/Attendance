@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\TahunAjaran;
+use App\Models\TahunAjaran;
 use Alert;
 
 class TapelController extends Controller
@@ -11,7 +11,7 @@ class TapelController extends Controller
 	public function index()
 	{
 		$datas = TahunAjaran::All();
-		return view('home', compact('datas'));
+		return view('tapel', compact('datas'));
 	}
 
     public function store(Request $request)
@@ -25,7 +25,7 @@ class TapelController extends Controller
     public function edit($id)
     {
     	$data = TahunAjaran::find($id);
-    	return view('edit', compact('data'));
+    	return view('tapel_edit', compact('data'));
     }
 
     public function update(Request $request)
@@ -33,7 +33,7 @@ class TapelController extends Controller
     	TahunAjaran::where('id', $request->id)->update([
     		'tapel' => $request->tapel,
     	]);
-    	return redirect()->route('home');
+    	return redirect()->route('tapel-index');
     }
 
     public function delete(Request $request)
@@ -51,6 +51,6 @@ class TapelController extends Controller
         TahunAjaran::where('id', $request->id)->update([
             'status' => 1,
         ]);
-        return redirect()->route('home');
+        return redirect()->route('tapel-index');
     }
 }
