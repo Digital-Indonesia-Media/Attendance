@@ -37,6 +37,12 @@ Route::put('/mapel/update', 'MapelController@update')->name('mapel-update');
 Route::post('/mapel/delete', 'MapelController@delete')->name('mapel-delete');
 Route::post('/mapel/publish', 'MapelController@publish')->name('mapel-publish');
 
+Route::get('/user', 'UserController@index')->name('user-index');
+Route::post('/user/store', 'UserController@store')->name('user-store');
+Route::get('/user/{id}/edit', 'UserController@edit')->name('user-edit');
+Route::put('/user/update', 'UserController@update')->name('user-update');
+Route::post('/user/delete', 'UserController@delete')->name('user-delete');
+
 
 
 

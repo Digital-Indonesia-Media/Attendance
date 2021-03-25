@@ -10,7 +10,7 @@ class MapelController extends Controller
     public function index()
     {
     	$datas = MataPelajaran::all();
-    	return view('mapel', compact('datas'));
+    	return view('user', compact('datas'));
     }
 
     public function store(Request $request)
