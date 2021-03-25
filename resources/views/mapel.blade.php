@@ -5,7 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Mapel') }}</div>
+                <div class="card-header">
+                        {{ __('Mapel') }}
+                    <a style="padding-left: 85%;" href="{{ route('home') }}">
+                        <button class="end-0 btn btn-primary">Back</button>
+                    </a>
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -17,11 +22,12 @@
                     <form class="form" action="{{ route('mapel-store') }}" method="POST">
                         @csrf
                         <input class="form-control" type="text" name="mapel">
-                        <button class="btn btn-success" type="submit">Submit</button>
+                        <br>
+                        <button class="btn form-control btn-success" type="submit">Submit</button>
                     </form>
 
                     <div>
-                        <table class="table">
+                        <table class="table" style="margin-top: 25px;">
                             <thead>
                                 <th>Mata Pelajaran</th>
                                 <th>Status</th>
@@ -96,13 +102,7 @@
                           'error'
                         )
                     }       
-                });
-                // Swal.fire(
-                //   'Deleted!',
-                //   'Your file has been deleted.',
-                //   'success'
-                // )
-              }
+                });              }
             })
         }
     </script>

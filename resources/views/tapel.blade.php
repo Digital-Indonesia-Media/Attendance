@@ -5,7 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Tapel') }}</div>
+                <div class="card-header">
+                    {{ __('Tapel') }}
+                    <a style="padding-left: 85%;" href="{{ route('home') }}">
+                        <button class="end-0 btn btn-primary">Back</button>
+                    </a>
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -26,7 +31,7 @@
                     </div>
 
                     <div>
-                        <table class="table" style="margin-top: 100px;">
+                        <table class="table" style="margin-top: 25px;">
                             <thead>
                                 <th>No</th>
                                 <th>Tahun Ajaran</th>
