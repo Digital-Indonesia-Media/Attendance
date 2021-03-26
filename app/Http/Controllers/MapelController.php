@@ -10,7 +10,7 @@ class MapelController extends Controller
     public function index()
     {
     	$datas = MataPelajaran::all();
-    	return view('user', compact('datas'));
+    	return view('mapel.mapel', compact('datas'));
     }
 
     public function store(Request $request)
@@ -24,7 +24,7 @@ class MapelController extends Controller
     public function edit($id)
     {
     	$data = MataPelajaran::find($id);
-    	return view('mapel_edit', compact('data'));
+    	return view('mapel.mapel_edit', compact('data'));
     }
 
     public function update(Request $request)

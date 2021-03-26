@@ -11,7 +11,7 @@ class TapelController extends Controller
 	public function index()
 	{
 		$datas = TahunAjaran::All();
-		return view('tapel', compact('datas'));
+		return view('tapel.tapel', compact('datas'));
 	}
 
     public function store(Request $request)
@@ -25,7 +25,7 @@ class TapelController extends Controller
     public function edit($id)
     {
     	$data = TahunAjaran::find($id);
-    	return view('tapel_edit', compact('data'));
+    	return view('tapel.tapel_edit', compact('data'));
     }
 
     public function update(Request $request)

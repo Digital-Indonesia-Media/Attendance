@@ -43,6 +43,12 @@ Route::get('/user/{id}/edit', 'UserController@edit')->name('user-edit');
 Route::put('/user/update', 'UserController@update')->name('user-update');
 Route::post('/user/delete', 'UserController@delete')->name('user-delete');
 
+Route::get('/kelas', 'KelasController@index')->name('kelas-index');
+Route::post('/kelas/store', 'KelasController@store')->name('kelas-store');
+Route::get('/kelas/{id}/edit', 'KelasController@edit')->name('kelas-edit');
+Route::put('/kelas/update', 'KelasController@update')->name('kelas-update');
+Route::post('/kelas/delete', 'KelasController@delete')->name('kelas-delete');
+
 
 
 

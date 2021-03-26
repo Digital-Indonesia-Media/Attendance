@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
     	$datas = User::all();
-    	return view('user', compact('datas'));
+    	return view('user.user', compact('datas'));
     }
 
     public function store(Request $request)
@@ -38,7 +38,7 @@ class UserController extends Controller
     public function edit($id)
     {
     	$data = User::find($id);
-    	return view('user_edit', compact('data'));
+    	return view('user.user_edit', compact('data'));
     }
 
     public function update(Request $request)
