@@ -19,12 +19,15 @@ Route::get('/', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'TapelController@index')->name('dashboard');
 
 // Route::get('/', 'TapelController@index')->name('index');
 
 
 Route::get('/tapel', 'TapelController@index')->name('tapel-index');
 Route::post('/tapel/store', 'TapelController@store')->name('tapel-store');
+Route::get('/tapel/{id}', 'TapelController@desc')->name('tapel-desc');
+Route::get('/tapel/{id}/{kelas}', 'TapelController@nameStudent')->name('tapel-nameStudent');
 Route::get('/tapel/{id}/edit', 'TapelController@edit')->name('tapel-edit');
 Route::put('/tapel/update', 'TapelController@update')->name('tapel-update');
 Route::post('/tapel/delete', 'TapelController@delete')->name('tapel-delete');

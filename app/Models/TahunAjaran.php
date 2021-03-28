@@ -9,4 +9,5 @@ class TahunAjaran extends Model
     protected $fillable = [
     	'tapel',
     ];
+
 }
