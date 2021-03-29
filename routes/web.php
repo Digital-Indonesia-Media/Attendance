@@ -52,6 +52,10 @@ Route::get('/kelas/{id}/edit', 'KelasController@edit')->name('kelas-edit');
 Route::put('/kelas/update', 'KelasController@update')->name('kelas-update');
 Route::post('/kelas/delete', 'KelasController@delete')->name('kelas-delete');
 
-
+Route::get('/jadwal', 'JadwalController@index')->name('jadwal-index');
+Route::post('/jadwal/store', 'JadwalController@store')->name('jadwal-store');
+Route::get('/jadwal/{id}/edit', 'JadwalController@edit')->name('jadwal-edit');
+Route::put('/jadwal/update', 'JadwalController@update')->name('jadwal-update');
+Route::post('/jadwal/delete', 'JadwalController@delete')->name('jadwal-delete');
 
 

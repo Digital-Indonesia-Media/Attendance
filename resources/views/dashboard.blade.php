@@ -12,7 +12,7 @@
                         <form class="form" action="{{ route('tapel-store') }}" method="POST">
                             @csrf
                             <div>
-                                <input class="form-control" type="text" name="tapel">
+                                <input type="text" name="tapel" class="form-control" placeholder="Insert tapel">
                                 <br>
                                 <button class="form-control btn btn-primary" type="submit">Add</button>
                             </div>

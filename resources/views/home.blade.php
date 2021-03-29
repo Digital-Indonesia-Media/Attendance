@@ -54,7 +54,20 @@
                     @endif
                     <a href="{{ route('kelas-index') }}">Lihat selengkapnya</a>
                 </div>
-            </div>
+            </div><br>
+
+            <div class="card">
+                <div class="card-header">{{ __('Jadwal') }}</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    <a href="{{ route('jadwal-index') }}">Lihat selengkapnya</a>
+                </div>
+            </div><br>
         </div>
     </div>
 </div>

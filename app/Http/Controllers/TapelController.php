@@ -20,6 +20,7 @@ class TapelController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
     	TahunAjaran::create([
     		'tapel' => $request->tapel,
     	]);
