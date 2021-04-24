@@ -4,19 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kelas;
+use App\Models\TahunAjaran;
 
 class KelasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+    
     public function index()
 	{
-		$datas = Kelas::All();
-		return view('kelas.kelas', compact('datas'));
+		$datas = Kelas::all();
+        $tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
+		return view('kelas.kelas', compact('datas', 'tahunAjarans'));
 	}
 
     public function store(Request $request)
     {
     	Kelas::create([
     		'kelas' => $request->kelas,
+            'tapel' => $request->tapel,
     	]);
     	return redirect()->back();
     }

@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
                     {{ __('Jadwal') }}
-                    <a style="padding-left: 84%;" href="{{ route('home') }}">
+                    <a style="padding-left: 87%;" href="{{ route('admin') }}">
                         <button class="end-0 btn btn-primary">Back</button>
                     </a>
                 </div>
@@ -67,6 +67,7 @@
                             </div><br>
                             <div>
                                 <label>Minggu</label>
+                                <!-- <input class="form-control" type="number" min="1" max="5" name="minggu" placeholder="Plih Minggu Keberapa"> -->
                                 <select name="minggu" class="form-control">
                                     <option value="" disabled selected hidden>Pilih Minggu keberapa</option>
                                     <option value="1">1</option>
@@ -80,28 +81,30 @@
                     <div>
                         <table class="table" style="margin-top: 25px;">
                             <thead>
-                                <th>No</th>
-                                <th>Tahun Pelajaran</th>
-                                <th>Kelas</th>
-                                <th>Mata Pelajaran</th>
-                                <th>Hari</th>
-                                <th>Waktu</th>
-                                <th>Aksi</th>
+                                <th class="center">No</th>
+                                <th class="center">Tahun Pelajaran</th>
+                                <th class="center">Kelas</th>
+                                <th class="center">Mata Pelajaran</th>
+                                <th class="center">Hari</th>
+                                <th class="center">Waktu</th>
+                                <th class="center">Minggu Ke-</th>
+                                <th class="center">Aksi</th>
                             </thead>
 
                             @foreach ($datas as $data)
                             <tbody>
-                                <th>{{ $data->id }}</th>
-                                <th>{{ $data->tapel->tapel }}</th>
-                                <th>{{ $data->kelas->kelas }}</th>
-                                <th>{{ $data->mapel->mapel }}</th>
-                                <th>{{ $data->hari }}</th>
-                                <th>{{ $data->waktu }}</th>
-                                <th>
-                                    <button class="btn btn-warning">
+                                <th class="center">{{ $data->id }}</th>
+                                <th class="center">{{ $data->tapel->tapel }}</th>
+                                <th class="center">{{ $data->kelas->kelas }}</th>
+                                <th class="center">{{ $data->mapel->mapel }}</th>
+                                <th class="center">{{ $data->hari }}</th>
+                                <th class="center">{{ $data->waktu }}</th>
+                                <th class="center">{{ $data->minggu }}</th>
+                                <th class="center">
+                                    <button class="btn btn-sm btn-warning">
                                         <a href="{{ route('jadwal-edit', $data->id) }}">Edit</a> 
                                     </button>
-                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-danger">
+                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-sm btn-danger">
                                         Delete
                                     </button>
                                 </th>

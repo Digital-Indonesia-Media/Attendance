@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TahunAjaran extends Model
 {
     protected $fillable = [
-    	'tapel',
+    	'tapel', 'publish_at', 'started_at',
     ];
 
 }

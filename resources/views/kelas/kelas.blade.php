@@ -6,8 +6,8 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ __('kelas') }}
-                    <a style="padding-left: 85%;" href="{{ route('home') }}">
+                    {{ __('Kelas') }}
+                    <a style="padding-left: 85%;" href="{{ route('admin') }}">
                         <button class="end-0 btn btn-primary">Back</button>
                     </a>
                 </div>
@@ -23,10 +23,22 @@
                         <form class="form" action="{{ route('kelas-store') }}" method="POST">
                             @csrf
                             <div>
-                                <input class="form-control" type="text" name="kelas">
+                                <label>Kelas</label>
+                                <input class="form-control" type="text" name="kelas" placeholder="Masukkan kelas" required="">
                                 <br>
-                                <button class="form-control btn btn-primary" type="submit">Submit</button>
                             </div>
+                            <div>
+                                <label>Tapel</label>
+                                <select name="tapel" class="form-control">
+                                    <option value="" disabled selected hidden>Pilih Tahun Pelajaran</option>
+                                    @foreach ($tahunAjarans as $tahunAjaran)
+                                    <option value="{{ $tahunAjaran->tapel }}">{{ $tahunAjaran->tapel }}</option>
+                                    @endforeach
+                                </select>
+                                <!-- <input class="form-control" type="text" name="tapel" placeholder="Masukkan tapel" required=""> -->
+                                <br>
+                            </div>
+                            <button class="form-control btn btn-primary" type="submit">Submit</button>
                         </form>
                     </div>
 
@@ -35,6 +47,7 @@
                             <thead>
                                 <th>No</th>
                                 <th>Kelas</th>
+                                <th>Tapel</th>
                                 <th>Aksi</th>
                             </thead>
 
@@ -42,6 +55,7 @@
                             <tbody>
                                 <th>{{ $data->id }}</th>
                                 <th>{{ $data->kelas }}</th>
+                                <th>{{ $data->tapel }}</th>
                                 <th>
                                     <button class="btn btn-warning">
                                         <a href="{{ route('kelas-edit', $data->id) }}">Edit</a> 

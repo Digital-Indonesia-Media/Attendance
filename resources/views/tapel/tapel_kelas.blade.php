@@ -16,8 +16,9 @@
 
                     <table class="table">
                         <thead>
-                            <th>No</th>
-                            <th>Nama</th>
+                            <th style="width: 20%;">No</th>
+                            <th style="width: 80%;">Nama</th>
+                        </th>
                         </thead>
                         @foreach ($kelass as $kelas)
                         <tbody>

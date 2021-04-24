@@ -9,6 +9,11 @@ use App\User;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+    
 	protected function validator(Request $request)
     {
         return Validator::make($request, [
@@ -28,6 +33,7 @@ class UserController extends Controller
     {
     	User::create([
     		'name' => $request->name,
+            'kelas' => $request->kelas,
     		'role' => $request->role,
     		'email' => $request->email,
     		'password' => Hash::make($request->password),

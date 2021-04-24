@@ -25,19 +25,25 @@
                             <div>
                                 <div>
                                     <label>Name</label>
-                                    <input class="form-control" type="text" name="name">
+                                    <input class="form-control" type="text" name="name" required="">
+                                </div>
+                                <br>
+
+                                <div>
+                                    <label>Kelas</label>
+                                    <input class="form-control" type="text" name="Kelas" required="">
                                 </div>
                                 <br>
 
                                 <div>
                                     <label>Email</label>
-                                    <input class="form-control" type="email" name="email">
+                                    <input class="form-control" type="email" name="email" required="">
                                 </div>
                                 <br>
 
                                 <div>
                                     <label for="password">{{ __('Password') }}</label>
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" required="">
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -49,15 +55,15 @@
 
                                 <div>
                                     <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" required="">
                                 </div>
                                 <br>
 
                                 <div>
                                     <label for="role">Role</label>
-                                    <select class="form-control" id="role" name="role">
-                                        <option value="student">Student</option>
-                                        <option value="teacher">Teacher</option>
+                                    <select class="form-control" id="role" name="role" required="">
+                                        <option value="siswa">Siswa</option>
+                                        <option value="guru">Guru</option>
                                     </select>
                                     <!-- <input class="form-control" type="text" name="role"> -->
                                 </div>

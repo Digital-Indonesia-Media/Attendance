@@ -19,7 +19,14 @@
 							@csrf
 							@method('PUT')
 							<input type="hidden" name="id" value="{{ $data->id }}">
-							<input type="text" name="tapel" value="{{ $data->tapel }}">
+                            <div>
+                                <label>Tapel</label>
+							     <input class="form-control" type="text" name="tapel" value="{{ $data->tapel }}">
+                            </div><br>
+                            <div>
+                                <label>Start Tapel On</label>
+                                <input type="date" name="started_at" class="form-control" value="{{ $data->started_at }}">
+                            </div><br>
 							<button class="btn btn-success">Update</button>
 						</form>
 					</div>

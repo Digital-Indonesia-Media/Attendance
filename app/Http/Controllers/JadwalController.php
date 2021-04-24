@@ -10,10 +10,15 @@ use App\Models\MataPelajaran;
 
 class JadwalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+    
     public function index()
     {
     	$datas = Jadwal::all();
-    	$tahunAjarans = TahunAjaran::all();
+    	$tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
     	$kelass = Kelas::all();
     	$mapels = MataPelajaran::all();
     	return view('jadwal.index', compact('datas', 'tahunAjarans', 'kelass', 'mapels'));

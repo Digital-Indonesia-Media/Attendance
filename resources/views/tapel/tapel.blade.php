@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     {{ __('Tapel') }}
-                    <a style="padding-left: 85%;" href="{{ route('home') }}">
+                    <a style="padding-left: 85%;" href="{{ route('admin') }}">
                         <button class="end-0 btn btn-primary">Back</button>
                     </a>
                 </div>

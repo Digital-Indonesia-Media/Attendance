@@ -12,10 +12,16 @@
                         <form class="form" action="{{ route('tapel-store') }}" method="POST">
                             @csrf
                             <div>
-                                <input type="text" name="tapel" class="form-control" placeholder="Insert tapel">
+                                <label>Tapel</label>
+                                <input type="text" name="tapel" class="form-control" placeholder="Insert tapel" required="">
                                 <br>
-                                <button class="form-control btn btn-primary" type="submit">Add</button>
                             </div>
+                            <div>
+                                <label>Start Tapel On</label>
+                                <input type="date" name="started_at" class="form-control" placeholder="Tapel will start on" required="">
+                                <br>
+                            </div>
+                            <button class="form-control btn btn-primary" type="submit">Add</button>
                         </form>
                     </div>
                 </div>
@@ -32,10 +38,10 @@
                             <button class="btn btn-warning">
                                 <a href="{{ route('tapel-edit', $tahunAjaran->id) }}">Edit</a> 
                             </button>
-                            <button onclick="hapus( {{$tahunAjaran->id}}  )" class="btn btn-danger">
+                            <button onclick="hapus( {{ $tahunAjaran->id }}  )" class="btn btn-danger">
                                 Delete
                             </button>
-                            <button onclick="publish( {{$tahunAjaran->id}}  )" class="btn btn-primary">
+                            <button onclick="publish( {{ $tahunAjaran->id }} )" class="btn btn-primary">
                                 Publish
                             </button>
                         @elseif($tahunAjaran->status < 0)
@@ -45,6 +51,10 @@
                         @elseif($tahunAjaran->status == 1)
                             <div style="margin: auto;">
                                 Active
+                            </div>
+                        @elseif($tahunAjaran->started_at != null)
+                            <div style="margin: auto;">
+                                Started
                             </div>
                         @endif
                     </div>
@@ -101,9 +111,10 @@
             })
         }
         function publish(id){
+            console.log('masukk');
             Swal.fire({
               title: 'Are you sure?',
-              text: 'After you publish, you can\'t delete this!',
+              text: 'You wan\'t be able to delete this!',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -121,7 +132,7 @@
                     success: function (data) {
                         Swal.fire(
                           'Publish!',
-                          'Your file has been Publish.',
+                          'Your file has been published.',
                           'success'
                         );
                         location.reload()

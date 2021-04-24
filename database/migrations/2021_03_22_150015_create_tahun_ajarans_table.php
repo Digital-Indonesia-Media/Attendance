@@ -17,6 +17,8 @@ class CreateTahunAjaransTable extends Migration
             $table->id();
             $table->string('tapel');
             $table->integer('status')->default(0);
+            $table->dateTime('publish_at')->nullable();
+            $table->date('started_at');
             $table->timestamps();
         });
     }

@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                         {{ __('Mapel') }}
-                    <a style="padding-left: 85%;" href="{{ route('home') }}">
+                    <a style="padding-left: 85%;" href="{{ route('admin') }}">
                         <button class="end-0 btn btn-primary">Back</button>
                     </a>
                 </div>
@@ -21,8 +21,22 @@
 
                     <form class="form" action="{{ route('mapel-store') }}" method="POST">
                         @csrf
-                        <input class="form-control" type="text" name="mapel">
-                        <br>
+                        <div>
+                            <label>Mapel</label>
+                            <input class="form-control" type="text" name="mapel" placeholder="Masukkan mapel" required="">
+                            <br>
+                        </div>
+                        <div>
+                            <label>Tapel</label>
+                              <select name="tapel" class="form-control">
+                                  <option value="" disabled selected hidden>Pilih Tahun Pelajaran</option>
+                                  @foreach ($tahunAjarans as $tahunAjaran)
+                                  <option value="{{ $tahunAjaran->tapel }}">{{ $tahunAjaran->tapel }}</option>
+                                  @endforeach
+                              </select>
+                            <!-- <input class="form-control" type="text" name="mapel" placeholder="Masukkan mapel" required=""> -->
+                            <br>
+                        </div>
                         <button class="btn form-control btn-success" type="submit">Submit</button>
                     </form>
 
@@ -31,6 +45,7 @@
                             <thead>
                                 <th>Mata Pelajaran</th>
                                 <th>Status</th>
+                                <th>Tapel</th>
                                 <th>Aksi</th>
                             </thead>
                             @foreach ($datas as $data)
@@ -47,9 +62,21 @@
                                 </th>
                                 @endif
 
+                                <th>{{ $data->tapel }}</th>
                                 <th>
                                     <a href="{{ route('mapel-edit', $data->id) }}"><button class="btn btn-warning">Edit</button></a>
                                     <button class="btn btn-danger" onclick="hapus({{ $data->id }})">Delete</button>
+                                    @if (($data->status) == 1)
+                                    <a href="{{ route('mapel-nonActive') }}" method="POST">
+                                      @csrf
+                                      <button class="btn btn-primary">Non-Active</button>
+                                    </a>
+                                    @elseif (($data->status) == 0)
+                                    <a href="{{ route('mapel-active') }}" method="POST">
+                                      @csrf
+                                      <button class="btn btn-primary">Active</button>
+                                    </a>
+                                    @endif
                                 </th>
                             </tbody>
                             @endforeach
@@ -102,7 +129,8 @@
                           'error'
                         )
                     }       
-                });              }
+                });              
+               }
             })
         }
     </script>

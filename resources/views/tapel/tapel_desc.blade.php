@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Tapel {{ $data->tapel }}</div>
+                <div class="card-header">Tapel {{ $tahunAjarans->tapel }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -20,12 +20,12 @@
                         </div>
                         <div class="card-body">
                             <table class="table">
-                                <thead>
-                                    <th>Mapel</th>
-                                </thead>
                                 @foreach ($mapels as $mapel)
                                 <tbody>
                                     <th>{{ $mapel->mapel }}</th>
+                                    <th style="width: 50%;">
+                                        <a href="{{ route('tapel-pertemuan', ['id' => $mapel->id, 'mapel' => $mapel->mapel]) }}">Lihat Selengkapnya...</a>
+                                    </th>
                                 </tbody>
                                 @endforeach
                             </table>
@@ -38,18 +38,54 @@
                         </div>
                         <div class="card-body">
                             <table class="table">
-                                <thead>
-                                    <th>Kelas</th>
-                                    <th></th>
-                                </thead>
                                 @foreach ($kelass as $kelas)
                                 <tbody>
-                                    <th>{{ $kelas->kelas }}</th>
-                                    <th>
+                                    <th style="width: 50%;">{{ $kelas->kelas }}</th>
+                                    <th style="width: 50%;">
                                         <a href="{{ route('tapel-nameStudent', ['id' => $kelas->id, 'kelas' => $kelas->kelas]) }}">Lihat Selengkapnya...</a>
                                     </th>
                                 </tbody>
                                 @endforeach
+                            </table>
+                        </div>
+                    </div><br>
+
+                    <div class="card">
+                        <div class="card-header">
+                            Jadwal
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                <th class="center">No</th>
+                                <th class="center">Tahun Pelajaran</th>
+                                <th class="center">Kelas</th>
+                                <th class="center">Mata Pelajaran</th>
+                                <th class="center">Hari</th>
+                                <th class="center">Waktu</th>
+                                <th class="center">Minggu Ke-</th>
+                                <th class="center">Aksi</th>
+                            </thead>
+
+                            @foreach ($datas as $data)
+                            <tbody>
+                                <th class="center">{{ $data->id }}</th>
+                                <th class="center">{{ $data->tapel->tapel }}</th>
+                                <th class="center">{{ $data->kelas->kelas }}</th>
+                                <th class="center">{{ $data->mapel->mapel }}</th>
+                                <th class="center">{{ $data->hari }}</th>
+                                <th class="center">{{ $data->waktu }}</th>
+                                <th class="center">{{ $data->minggu }}</th>
+                                <th class="center">
+                                    <button class="btn btn-sm btn-warning">
+                                        <a href="{{ route('jadwal-edit', $data->id) }}">Edit</a> 
+                                    </button>
+                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-sm btn-danger">
+                                        Delete
+                                    </button>
+                                </th>
+                            </tbody>
+                            @endforeach
                             </table>
                         </div>
                     </div>
