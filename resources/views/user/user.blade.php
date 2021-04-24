@@ -25,25 +25,29 @@
                             <div>
                                 <div>
                                     <label>Name</label>
-                                    <input class="form-control" type="text" name="name" required="">
+                                    <input class="form-control" type="text" name="name" required="" placeholder="Masukkan Nama">
                                 </div>
                                 <br>
 
                                 <div>
-                                    <label>Kelas</label>
-                                    <input class="form-control" type="text" name="Kelas" required="">
+                                    <label for="role">Kelas</label>
+                                    <select class="form-control" id="kelas" name="kelas" required="">
+                                        @foreach($kelass as $kelas)
+                                        <option value="{{ $kelas->kelas}}">{{ $kelas->kelas }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <br>
 
                                 <div>
                                     <label>Email</label>
-                                    <input class="form-control" type="email" name="email" required="">
+                                    <input class="form-control" type="email" name="email" required="" placeholder="Masukkan Alamat Email">
                                 </div>
                                 <br>
 
                                 <div>
                                     <label for="password">{{ __('Password') }}</label>
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" required="">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" required="" placeholder="Masukkan Password">
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -55,7 +59,7 @@
 
                                 <div>
                                     <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" required="">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" required="" placeholder="Masukkan Kembali Password">
                                 </div>
                                 <br>
 

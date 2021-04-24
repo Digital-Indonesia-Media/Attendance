@@ -21,8 +21,9 @@ class SiswaController extends Controller
     public function index()
     {
         $user = User::where('name', Auth::user()->name)->get();
+        $kelas = Kelas::where('kelas', $user[0]->kelas)->get();
         // return $user[0]->kelas;
-        $datas = Jadwal::where('kelas_id', $user[0]->kelas)->get();
+        $datas = Jadwal::where('kelas_id', $kelas[0]->id)->get();
         $tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
         $kelass = Kelas::all();
         $mapels = MataPelajaran::all();
@@ -35,9 +36,12 @@ class SiswaController extends Controller
     	return view('siswa.jadwal', compact('jadwals'));
     }
 
-    public function pertemuan()
+    public function pertemuan($id)
     {
-    	$pertemuans = Pertemuan::all();
+        $user = User::where('name', Auth::user()->name)->get();
+        $kelas = Kelas::where('kelas', $user[0]->kelas)->get();
+        $data = Jadwal::where('kelas_id', $kelas[0]->id)->get();
+    	$pertemuans = Pertemuan::where('mapel', $data[$id-1]->mapel->mapel)->get();
     	return view('siswa.pertemuan', compact('pertemuans'));
     }
 

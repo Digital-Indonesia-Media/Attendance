@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\User;
+use App\Models\Kelas;
 
 class UserController extends Controller
 {
@@ -26,11 +27,13 @@ class UserController extends Controller
     public function index()
     {
     	$datas = User::all();
-    	return view('user.user', compact('datas'));
+        $kelass = Kelas::all();
+    	return view('user.user', compact('datas', 'kelass'));
     }
 
     public function store(Request $request)
     {
+        // return $request->kelas;
     	User::create([
     		'name' => $request->name,
             'kelas' => $request->kelas,

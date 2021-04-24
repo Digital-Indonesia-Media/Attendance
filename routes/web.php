@@ -71,7 +71,7 @@ Route::post('/pertemuan/delete', 'PertemuanController@delete')->name('pertemuan-
 Route::group(['middleware' => ['siswa']], function () {
 	Route::get('/siswa', 'SiswaController@index')->name('siswa');
 	Route::get('/siswa/jadwal', 'SiswaController@jadwal')->name('siswa-jadwal');
-	Route::get('/siswa/pertemuan', 'SiswaController@pertemuan')->name('siswa-pertemuan');
+	Route::get('/siswa/{id}/pertemuan', 'SiswaController@pertemuan')->name('siswa-pertemuan');
 	Route::post('/siswa/pertemuan/hadir', 'SiswaController@hadir')->name('siswa-pertemuan-hadir');
 });
 

@@ -17,7 +17,6 @@ class CreatePertemuansTable extends Migration
             $table->id();
             $table->string('mapel');
             $table->integer('pertemuan_ke');
-            $table->string('kelas');
             $table->string('pembahasan')->nullable();
             $table->timestamps();
         });

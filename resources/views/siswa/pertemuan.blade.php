@@ -31,9 +31,12 @@
                                 <th class="center">{{ $pertemuan->mapel }}</th>
                                 <th class="center">{{ $pertemuan->pembahasan }}</th>
                                 <th class="center">
-                                    <button class="btn btn-sm btn-primary">
-                                        <a href="{{ route('siswa-pertemuan-hadir', $pertemuan->id) }}">Hadir</a> 
-                                    </button>
+                                    <a href="{{ route('siswa-pertemuan-hadir', $pertemuan->id) }}">
+                                        <button class="btn btn-sm btn-success">Hadir</button>
+                                    </a>
+                                    <a href="{{ route('siswa-pertemuan-hadir', $pertemuan->id) }}">
+                                        <button class="btn btn-sm btn-warning">Izin</button>
+                                    </a> 
                                 </th>
                             </tbody>
                             @endforeach
