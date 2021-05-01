@@ -21,7 +21,7 @@ class JadwalController extends Controller
     	$tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
     	$kelass = Kelas::all();
     	$mapels = MataPelajaran::all();
-    	return view('jadwal.index', compact('datas', 'tahunAjarans', 'kelass', 'mapels'));
+    	return view('jadwal.index', compact('datas', 'tahunAjarans', 'kelass', 'mapels',));
     }
 
     public function store(Request $request)
@@ -30,6 +30,7 @@ class JadwalController extends Controller
     		'tapel_id' => $request->tapel_id,
     		'kelas_id' => $request->kelas_id,
     		'mapel_id' => $request->mapel_id,
+            'guru_id' => $request->guru_id,
     		'waktu' => $request->waktu,
     		'hari' => $request->hari,
     		'minggu' => $request->minggu,

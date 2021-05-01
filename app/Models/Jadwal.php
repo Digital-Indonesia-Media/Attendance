@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Jadwal extends Model
 {
 	protected $table = 'jadwal';
 
     public $fillable = [
-    	'tapel_id', 'kelas_id', 'mapel_id', 'hari', 'waktu', 'minggu',
+    	'tapel_id', 'kelas_id', 'mapel_id', 'guru_id', 'hari', 'waktu', 'minggu',
     ];
 
     public function tapel()
@@ -25,5 +26,11 @@ class Jadwal extends Model
     public function kelas()
     {
     	return $this->belongsTo('App\Models\Kelas');
+    }
+
+    public function user()
+    {
+        $user = User::where('role', 'guru')->get();
+        return $user;
     }
 }

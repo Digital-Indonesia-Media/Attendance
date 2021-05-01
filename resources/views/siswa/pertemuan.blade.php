@@ -27,17 +27,35 @@
                             </thead>
                             @foreach($pertemuans as $pertemuan)
                             <tbody>
-                                <th class="center">{{ $pertemuan->pertemuan_ke }}</th>
-                                <th class="center">{{ $pertemuan->mapel }}</th>
-                                <th class="center">{{ $pertemuan->pembahasan }}</th>
-                                <th class="center">
-                                    <a href="{{ route('siswa-pertemuan-hadir', $pertemuan->id) }}">
-                                        <button class="btn btn-sm btn-success">Hadir</button>
-                                    </a>
-                                    <a href="{{ route('siswa-pertemuan-hadir', $pertemuan->id) }}">
-                                        <button class="btn btn-sm btn-warning">Izin</button>
-                                    </a> 
-                                </th>
+                                <td class="center">{{ $pertemuan->pertemuan_ke }}</td>
+                                <td class="center">{{ $pertemuan->mapel }}</td>
+                                <td class="center">{{ $pertemuan->pembahasan }}</td>
+                                <td class="center inline">
+                                    @if ($pertemuan->kehadiran() == 0)
+                                        <div style="margin: auto;">
+                                            Absen
+                                        </div>
+                                    @elseif($pertemuan->kehadiran() == 1)
+                                        <div style="margin: auto;">
+                                            Hadir
+                                        </div>
+                                    @elseif($pertemuan->kehadiran() == 2)
+                                        <div style="margin: auto;">
+                                            Izin
+                                        </div>
+                                    @else
+                                        <div style="margin: auto;">
+                                            <form action="{{ route('siswa-pertemuan-hadir', $pertemuan->id) }}"  method="POST">
+                                            @csrf
+                                            <button class="btn btn-sm btn-success">Hadir</button>
+                                            </form>
+                                            <form action="{{ route('siswa-pertemuan-izin', $pertemuan->id) }}"  method="POST">
+                                                @csrf
+                                                <button class="btn btn-sm btn-warning">Izin</button>
+                                            </form>
+                                        </div>
+                                    @endif
+                                </td>
                             </tbody>
                             @endforeach
                         </table>

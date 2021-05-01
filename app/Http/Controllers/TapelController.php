@@ -22,7 +22,6 @@ class TapelController extends Controller
 	public function index()
 	{
 		$tahunAjarans = TahunAjaran::All();
-        // dd($tahunAjarans);
 		return view('dashboard', compact('tahunAjarans'));
 	}
 

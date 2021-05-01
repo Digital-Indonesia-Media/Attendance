@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Kehadiran extends Model
 {
     public $fillable = [
-    	'pertemuan_id', 'status',
+    	'name_id', 'kelas_id', 'mapel_id', 'pertemuan_id', 'status',
     ];
 }

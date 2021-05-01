@@ -15,8 +15,10 @@ class CreateKehadiransTable extends Migration
     {
         Schema::create('kehadirans', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('kelas');
+            $table->integer('name_id');
+            $table->integer('kelas_id');
+            $table->integer('mapel_id');
+            $table->integer('pertemuan_id');
             $table->integer('status')->default(0);
             $table->timestamps();
         });

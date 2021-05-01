@@ -24,7 +24,7 @@
                             @csrf
                             <div>
                                 <label>Tahun Pelajaran</label>
-                                <select name="tapel_id" class="form-control">
+                                <select name="tapel_id" class="form-control" required="">
                                     <option value="" disabled selected hidden>Pilih Tahun Pelajaran</option>
                                     @foreach ($tahunAjarans as $tahunAjaran)
                                     <option value="{{ $tahunAjaran->id }}">{{ $tahunAjaran->tapel }}</option>
@@ -34,7 +34,7 @@
                             </div><br>
                             <div>
                                 <label>Kelas</label>
-                                <select name="kelas_id" class="form-control">
+                                <select name="kelas_id" class="form-control" required="">
                                     <option value="" disabled selected hidden >Pilih Kelas</option>
                                     @foreach ($kelass as $kelas)
                                     <option value="{{ $kelas->id }}">{{ $kelas->kelas }}</option>
@@ -43,7 +43,7 @@
                             </div><br>
                             <div>
                                 <label>Mata Pelajaran</label>
-                                <select name="mapel_id" class="form-control">
+                                <select name="mapel_id" class="form-control" required="">
                                     <option value="" disabled selected hidden>Pilih Mata Pelajaran</option>
                                     @foreach ($mapels as $mapel)
                                     <option value="{{ $mapel->id }}">{{ $mapel->mapel }}</option>
@@ -51,8 +51,19 @@
                                 </select>
                             </div><br>
                             <div>
+                                <label>Nama Guru Yang Mengajar</label>
+                                <select name="guru_id" class="form-control" required="">
+                                    <option value="" disabled selected hidden>Pilih Nama Guru</option>
+                                    @foreach ($datas as $data)
+                                    @foreach ($data->user() as $user)
+                                    <option value="{{ $data->guru_id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                    @endforeach
+                                </select>
+                            </div><br>
+                            <div>
                                 <label>Hari</label>
-                                <select name="hari" class="form-control">
+                                <select name="hari" class="form-control" required="">
                                     <option value="" disabled selected hidden>Pilih Hari Jadwal</option>
                                     <option value="Senin">Senin</option>
                                     <option value="Selasa">Selasa</option>
@@ -63,12 +74,12 @@
                             </div><br>
                             <div>
                                 <label>Waktu</label>
-                                <input class="form-control" type="time" name="waktu">
+                                <input class="form-control" type="time" name="waktu" required="">
                             </div><br>
                             <div>
                                 <label>Minggu</label>
                                 <!-- <input class="form-control" type="number" min="1" max="5" name="minggu" placeholder="Plih Minggu Keberapa"> -->
-                                <select name="minggu" class="form-control">
+                                <select name="minggu" class="form-control" required="">
                                     <option value="" disabled selected hidden>Pilih Minggu keberapa</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>

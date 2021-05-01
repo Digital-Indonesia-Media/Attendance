@@ -28,7 +28,7 @@
                                     @endforeach
                                 </select>
                             </div><br>
-                            <div>
+                            <!-- <div>
                                 <label>Kelas</label>
                                 <select name="kelas" class="form-control">
                                     <option value="" disabled selected hidden>Pilih Kelas</option>
@@ -36,7 +36,7 @@
                                     <option value="{{ $kelas->kelas }}">{{ $kelas->kelas }}</option>
                                     @endforeach
                                 </select>
-                            </div><br>
+                            </div><br> -->
                             <div>
                                 <label>Pertemuan Ke-</label>
                                 <input type="number" name="pertemuan_ke" class="form-control" placeholder="Masukkan pertemuan keberapa">
@@ -96,7 +96,7 @@
               if (result.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: "{{route('pertemuan-delete')}}",
+                    url: "{{route('guru-pertemuan-delete')}}",
                     data: {
                         _token: "{{ csrf_token() }}",
                         id:id

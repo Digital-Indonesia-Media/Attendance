@@ -72,7 +72,8 @@ Route::group(['middleware' => ['siswa']], function () {
 	Route::get('/siswa', 'SiswaController@index')->name('siswa');
 	Route::get('/siswa/jadwal', 'SiswaController@jadwal')->name('siswa-jadwal');
 	Route::get('/siswa/{id}/pertemuan', 'SiswaController@pertemuan')->name('siswa-pertemuan');
-	Route::post('/siswa/pertemuan/hadir', 'SiswaController@hadir')->name('siswa-pertemuan-hadir');
+	Route::post('/siswa/{id}/pertemuan/hadir', 'SiswaController@hadir')->name('siswa-pertemuan-hadir');
+	Route::post('/siswa/{id}/pertemuan/izin', 'SiswaController@izin')->name('siswa-pertemuan-izin');
 });
 
 Route::group(['middleware' => ['guru']], function () {
@@ -80,6 +81,7 @@ Route::group(['middleware' => ['guru']], function () {
 	Route::get('/guru/jadwal', 'GuruController@jadwal')->name('guru-jadwal');
 	Route::get('/guru/{id}/pertemuan', 'GuruController@pertemuan')->name('guru-pertemuan');
 	Route::post('/guru/pertemuan/store', 'GuruController@store')->name('guru-pertemuan-store');
+	Route::post('/guru/pertemuan/delete', 'GuruController@delete')->name('guru-pertemuan-delete');
 });
 
 
