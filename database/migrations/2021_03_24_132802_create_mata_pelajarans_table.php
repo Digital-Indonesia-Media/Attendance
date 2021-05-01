@@ -17,6 +17,7 @@ class CreateMataPelajaransTable extends Migration
             $table->id();
             $table->string('mapel');
             $table->integer('status')->default(1);
+            $table->string('tapel');
             $table->timestamps();
         });
     }
