@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Role;
-use App\User;
+  
 use App\Models\Kelas;
+use App\User;
+use App\Models\TahunAjaran;
+use App\Imports\userImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -26,9 +31,30 @@ class UserController extends Controller
 
     public function index()
     {
-    	$datas = User::all();
-        $kelass = Kelas::all();
-    	return view('user.user', compact('datas', 'kelass'));
+        $tahunAjarans = TahunAjaran::where('status', 1)->first();
+        $tapels = TahunAjaran::all();
+        $datas = User::where('role', 'guru')->get();
+        $kelass = Kelas::where('tapel', $tahunAjarans->tapel)->get();
+
+        return view('user.index', compact('tahunAjarans', 'datas', 'kelass', 'tapels'));
+    }
+
+    public function user($id)
+    {
+        $tahunAjarans = TahunAjaran::find($id)->first();
+    	$datas = User::where('role', 'siswa')->get();
+        $kelass = Kelas::where('tapel', $tahunAjarans->tapel)->get();
+        // return $kelass;
+
+    	return view('user.user', compact('datas', 'kelass', 'tahunAjarans',));
+    }
+
+    public function siswa($id)
+    {
+        $kelass = Kelas::where('id', $id)->get();
+        $datas = User::where('role', 'siswa')->Where('kelas', $kelass[0]->kelas)->get();
+
+        return view('user.siswa', compact('datas', 'kelass',));
     }
 
     public function store(Request $request)
@@ -64,5 +90,11 @@ class UserController extends Controller
     {
     	User::where('id', $request->id)->delete();
     	return redirect()->back();    
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new userImport, $request->file('file'));
+        return redirect()->back();
     }
 }

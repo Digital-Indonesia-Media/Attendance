@@ -1,9 +1,49 @@
 @extends('layouts.app')
 
+@section('title')
+Jadwal
+@endsection
+
+@section('sidebar-nav')
+<ul class="nav">
+  <li>
+    <a href=" {{ route('guru') }}">
+      <i class="now-ui-icons design_app"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('guru-kelas', $tahunAjarans[0]->id) }}">
+      <i class="fas fa-warehouse"></i>
+      <p>Data Kelas</p>
+    </a>
+  </li>
+
+  <li class="active">
+    <a href="{{ route('guru-jadwal') }}">
+      <i class="now-ui-icons education_agenda-bookmark"></i>
+      <p>Jadwal</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('guru-profile') }}">
+      <i class="now-ui-icons users_single-02"></i>
+      <p>Profil Pengguna</p>
+    </a>
+  </li>
+</ul>
+@endsection
+
+@section('username')
+{{ Auth::user()->name }}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     {{ __('Pertemuan') }}
@@ -19,24 +59,11 @@
                     <div>
                         <form class="form" action="{{ route('guru-pertemuan-store') }}" method="POST">
                             @csrf
+                            <input type="hidden" name="kelas_id" value="{{ $kelas_id[0]->id }}">
                             <div>
                                 <label>Mapel</label>
-                                <select name="mapel" class="form-control">
-                                    <option value="" disabled selected hidden>Pilih Mata Pelajaran</option>
-                                    @foreach ($mapels as $mapel)
-                                    <option value="{{ $mapel->mapel }}">{{ $mapel->mapel }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="mapel" class="form-control" value="{{ $mapels[0]->mapel }}">
                             </div><br>
-                            <!-- <div>
-                                <label>Kelas</label>
-                                <select name="kelas" class="form-control">
-                                    <option value="" disabled selected hidden>Pilih Kelas</option>
-                                    @foreach ($kelass as $kelas)
-                                    <option value="{{ $kelas->kelas }}">{{ $kelas->kelas }}</option>
-                                    @endforeach
-                                </select>
-                            </div><br> -->
                             <div>
                                 <label>Pertemuan Ke-</label>
                                 <input type="number" name="pertemuan_ke" class="form-control" placeholder="Masukkan pertemuan keberapa">
@@ -45,29 +72,41 @@
                                 <label>Pembahasan</label>
                                 <input name="pembahasan" class="form-control" placeholder="Masukkan pembahasan">
                             </div><br>
-                                <button class="form-control btn btn-primary" type="submit">Submit</button>
+                                <button class="form-control btn btn-primary" type="submit">Tambahkan</button>
                         </form><br>
 
                         <table class="table">
                             <thead>
-                                <th class="center">Pertemuan Ke-</th>
-                                <th class="center">Mapel</th>
-                                <th class="center">Pembahasan</th>
-                                <th class="center">Aksi</th>
+                                <td class="center">Pertemuan Ke-</td>
+                                <td class="center">Mapel</td>
+                                <td class="center">Pembahasan</td>
+                                <td class="center">Aksi</td>
                             </thead>
                             @foreach($pertemuans as $pertemuan)
                             <tbody>
-                                <th class="center">{{ $pertemuan->pertemuan_ke }}</th>
-                                <th class="center">{{ $pertemuan->mapel }}</th>
-                                <th class="center">{{ $pertemuan->pembahasan }}</th>
-                                <th class="center">
-                                    <button class="btn btn-sm btn-warning">
-                                        <a href="{{ route('pertemuan-edit', $pertemuan->id) }}">Edit</a> 
-                                    </button>
-                                    <button onclick="hapus( {{$pertemuan->id}}  )" class="btn btn-sm btn-danger">
+                                <td class="center">{{ $pertemuan->pertemuan_ke }}</td>
+                                <td class="center">{{ $pertemuan->mapel }}</td>
+                                <td class="center">{{ $pertemuan->pembahasan }}</td>
+                                <td class="center">
+                                    @if ($pertemuan->status == 1)
+                                    <input class="form-control center" style="width: 200px; margin-top: 5px; display: inherit!important;" type="text" name="code" value="{{$pertemuan->code}}">
+                                    <a href="{{ route('guru-kehadiran-siswa', $pertemuan->id) }}"><button class="btn btn-success center" style="width: 200; margin: 5px 0px 0px 15px;">
+                                        Lihat Kehadiran Siswa
+                                    </button></a>
+                                    @else
+                                    <a href="{{ route('guru-pertemuan-edit', $pertemuan->id) }}">
+                                        <button class="btn btn-warning">
+                                            Edit
+                                        </button>
+                                    </a>
+                                    <button onclick="hapus( {{$pertemuan->id}}  )" class="btn btn-danger">
                                         Delete
                                     </button>
-                                </th>
+                                    <button onclick="publish( {{$pertemuan->id}}  )" class="btn btn-primary">
+                                        Publish
+                                    </button>
+                                    @endif
+                                </td>
                             </tbody>
                             @endforeach
                         </table>
@@ -85,13 +124,13 @@
     <script>
         function hapus(id){
             Swal.fire({
-              title: 'Are you sure?',
-              text: 'You wan\'t be able to revert this!',
+              title: 'Apakah kamu yakin?',
+              text: 'Kamu tidak dapat memulihkan ini kembali!',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
+              confirmButtonText: 'Ya, hapus saja!'
             }).then((result) => {
               if (result.isConfirmed) {
                 $.ajax({
@@ -103,9 +142,39 @@
                     },
                     success: function (data) {
                         Swal.fire(
-                          'Deleted!',
-                          'Your file has been deleted.',
-                          'success'
+                          'Terhapus!',
+                          'File anda telah berhasil dihapus.',
+                          'Berhasil'
+                        );
+                        location.reload()
+                    }         
+                });
+              }
+            })
+        }
+        function publish(id){
+            Swal.fire({
+              title: 'Apakah kamu yakin?',
+              text: 'Setelah kamu menerbitkan, file ini tidak dapat dihapus!',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Ya, terbitkan!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('guru-pertemuan-publish')}}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id:id
+                    },
+                    success: function (data) {
+                        Swal.fire(
+                          'Terbit!',
+                          'File anda telah berhasil diterbitkan.',
+                          'Berhasil'
                         );
                         location.reload()
                     }         

@@ -8,6 +8,8 @@ use App\Models\TahunAjaran;
 use App\Models\Kelas;
 use App\Models\MataPelajaran;
 use App\Models\Pertemuan;
+use App\Imports\PertemuanImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PertemuanController extends Controller
 {
@@ -44,7 +46,8 @@ class PertemuanController extends Controller
     	$tahunAjarans = TahunAjaran::all();
     	$kelass = Kelas::all();
     	$mapels = MataPelajaran::all();
-    	return view('jadwal.jadwal_edit', compact('data', 'tahunAjarans', 'kelass', 'mapels'));
+        // return$data;
+    	return view('pertemuan.pertemuan_edit', compact('data', 'tahunAjarans', 'kelass', 'mapels'));
     }
 
     public function update(Request $request)
@@ -55,12 +58,18 @@ class PertemuanController extends Controller
             'pertemuan_ke' => $request->pertemuan_ke,
             'pembahasan' => $request->pembahasan,
     	]);
-    	return redirect()->route('jadwal-index');
+    	return redirect()->route('pertemuan-index');
     }
 
     public function delete(Request $request)
     {
     	Pertemuan::where('id', $request->id)->delete();
     	return redirect()->back();    
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new PertemuanImport, $request->file('file'));
+        return redirect()->back();
     }
 }

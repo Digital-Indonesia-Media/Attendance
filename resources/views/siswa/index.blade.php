@@ -1,165 +1,128 @@
 @extends('layouts.app')
 
+@section('title')
+Dashboard
+@endsection
+
+@section('sidebar-nav')
+<ul class="nav">
+  <li class="active">
+    <a href=" {{ route('siswa') }}">
+      <i class="now-ui-icons design_app"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('siswa-jadwal') }}">
+      <i class="now-ui-icons education_agenda-bookmark"></i>
+      <p>Jadwal</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('siswa-profile') }}">
+      <i class="now-ui-icons users_single-02"></i>
+      <p>Profil Pengguna</p>
+    </a>
+  </li>
+</ul>
+@endsection
+
+@section('username')
+{{ Auth::user()->name }}
+@endsection
+
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card" style="background-color: #20c997; min-height: 159.347px;">
+                <div class="row">
+                    <div class="col-md-4" style="margin: 20px 0px 0px 0px; padding-left: 40px;">
+                        <i class="fas fa-user-check" style="font-size: 7rem; color: #fff;"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-header">
+                            <h5 class="card-category" style="color: #fff;">Hadir</h5>
+                        </div>
+
+                        <div class="card-body" style="margin-left: 50%;">
+                            <h1 class="card-category" style="color: #fff; font-size: 3em;">{{ $hadir }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card" style="background-color: #17a2b8; min-height: 159.347px;">
+                <div class="row">
+                    <div class="col-md-4" style="margin: 20px 0px 0px 0px; padding-left: 40px;">
+                        <i class="fas fa-user-injured" style="font-size: 7rem; color: #fff;"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-header">
+                            <h5 class="card-category" style="color: #fff;">Izin</h5>
+                        </div>
+
+                        <div class="card-body" style="margin-left: 50%;">
+                            <h1 class="card-category" style="color: #fff; font-size: 3em;">{{ $izin }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card" style="background-color: #ed4973e6; min-height: 159.347px;">
+                <div class="row">
+                    <div class="col-md-4" style="margin: 20px 0px 0px 0px; padding-left: 40px;">
+                        <i class="fas fa-user-times" style="font-size: 7rem; color: #fff;"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-header">
+                            <h5 class="card-category" style="color: #fff;">Alfa</h5>
+                        </div>
+
+                        <div class="card-body" style="margin-left: 50%;">
+                            <h1 class="card-category" style="color: #fff; font-size: 3em;">{{ $alfa }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
             <div class="card">
-                <div class="card-header">{{ __('Jadwal') }}</div>
+                <div class="card-header">
+                    <h5 class="card-category" style="color: #f96332;">Komentar</h5>
+                </div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    
-                    <div class="card">
-                        <div class="card-header">Senin</div>
+                    <blockquote>
+                        @if ($hadir > ( $izin + $alfa))
+                            <p class="blockquote blockquote-primary">
+                                "Dipertahanin rajinnya ya! :)"
+                            </p>
+                        @elseif ($izin > 5)
+                            <p class="blockquote blockquote-primary">
+                                "Ayo lebih semangat lagi belajarnya ya!"
+                            </p>
+                        @elseif ($alfa > 3)
+                            <p class="blockquote blockquote-primary">
+                                "Ayo jangan banyak alfa, nanti tidak naik kelas loh! :("
+                            </p>
+                        @else
+                            <p class="blockquote blockquote-primary">
+                                "Semangatt sekolahnyaa!"
+                            </p>   
+                        @endif
 
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <th>Kelas</th>
-                                    <th>Mapel</th>
-                                    <th>Waktu</th>
-                                    <th>Aksi</th>
-                                </thead>
-                                <tbody>
-                                @foreach($datas as $data)
-                                @if ($data->hari == 'Senin')
-                                <tr>
-                                    <td>{{ $data->kelas->kelas }}</td>
-                                    <td>{{ $data->mapel->mapel }}</td>
-                                    <td>{{ $data->waktu }}</td>
-                                    <td>
-                                        <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
-                                    </td>
-                                </tr>
-                                @endif
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div><br>
-
-                    <div class="card">
-                        <div class="card-header">Selasa</div>
-
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <th>Kelas</th>
-                                    <th>Mapel</th>
-                                    <th>Waktu</th>
-                                    <th>Aksi</th>
-                                </thead>
-                                <tbody>
-                                @foreach($datas as $data)
-                                @if ($data->hari == 'Selasa')
-                                <tr>
-                                    <td>{{ $data->kelas->kelas }}</td>
-                                    <td>{{ $data->mapel->mapel }}</td>
-                                    <td>{{ $data->waktu }}</td>
-                                    <td>
-                                        <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
-                                    </td>
-                                </tr>
-                                @endif
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div><br>
-
-                    <div class="card">
-                        <div class="card-header">Rabu</div>
-
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <th>Kelas</th>
-                                    <th>Mapel</th>
-                                    <th>Waktu</th>
-                                    <th>Aksi</th>
-                                </thead>
-                                <tbody>
-                                @foreach($datas as $data)
-                                @if ($data->hari == 'Rabu')
-                                <tr>
-                                    <td>{{ $data->kelas->kelas }}</td>
-                                    <td>{{ $data->mapel->mapel }}</td>
-                                    <td>{{ $data->waktu }}</td>
-                                    <td>
-                                        <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
-                                    </td>
-                                </tr>
-                                @endif
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div><br>
-
-                    <div class="card">
-                        <div class="card-header">Kamis</div>
-
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <th>Kelas</th>
-                                    <th>Mapel</th>
-                                    <th>Waktu</th>
-                                    <th>Aksi</th>
-                                </thead>
-                                <tbody>
-                                @foreach($datas as $data)
-                                @if ($data->hari == 'Kamis')
-                                <tr>
-                                    <td>{{ $data->kelas->kelas }}</td>
-                                    <td>{{ $data->mapel->mapel }}</td>
-                                    <td>{{ $data->waktu }}</td>
-                                    <td>
-                                        <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
-                                    </td>
-                                </tr>
-                                @endif
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div><br>
-
-                    <div class="card">
-                        <div class="card-header">Jumat</div>
-
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <th>Kelas</th>
-                                    <th>Mapel</th>
-                                    <th>Waktu</th>
-                                    <th>Aksi</th>
-                                </thead>
-                                <tbody>
-                                @foreach($datas as $data)
-                                @if ($data->hari == 'Jumat')
-                                <tr>
-                                    <td>{{ $data->kelas->kelas }}</td>
-                                    <td>{{ $data->mapel->mapel }}</td>
-                                    <td>{{ $data->waktu }}</td>
-                                    <td>
-                                        <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
-                                    </td>
-                                </tr>
-                                @endif
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div><br>
+                        
+                    </blockquote>
                 </div>
-            </div><br>
+            </div>
         </div>
     </div>
 </div>

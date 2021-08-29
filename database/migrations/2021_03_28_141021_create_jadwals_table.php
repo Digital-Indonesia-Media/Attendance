@@ -21,7 +21,6 @@ class CreateJadwalsTable extends Migration
             $table->integer('guru_id');
             $table->string('hari');
             $table->time('waktu');
-            $table->integer('minggu');
             $table->timestamps();
         });
     }

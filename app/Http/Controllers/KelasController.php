@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
 use App\Models\TahunAjaran;
+use App\Imports\KelasImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KelasController extends Controller
 {
@@ -17,8 +19,17 @@ class KelasController extends Controller
 	{
 		$datas = Kelas::all();
         $tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
-		return view('kelas.kelas', compact('datas', 'tahunAjarans'));
+		return view('kelas.index', compact('datas', 'tahunAjarans'));
 	}
+
+    public function kelas($id)
+    {
+        $tahunAjarans = TahunAjaran::where('id', $id)->first();
+        $datas = Kelas::where('tapel', $tahunAjarans->tapel)->get();
+        // return$datas;
+
+        return view('kelas.kelas', compact('tahunAjarans', 'datas', 'tahunAjarans'));
+    }
 
     public function store(Request $request)
     {
@@ -47,5 +58,11 @@ class KelasController extends Controller
     {
     	Kelas::where('id', $request->id)->delete();
     	return redirect()->back();    
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new KelasImport, $request->file('file'));
+        return redirect()->back();
     }
 }

@@ -81,9 +81,10 @@ class TapelController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function nameStudent($kelas)
+    public function nameStudent($id, $kelas)
     {
-        $kelass = User::all();
+        $kelass = User::where('kelas', $kelas)->where('role', 'siswa')->get();
+        // return $kelass;
 
         return view('tapel.tapel_kelas', compact('kelass'));
     }

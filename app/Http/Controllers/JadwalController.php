@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Models\Kelas;
 use App\Models\Jadwal;
 use App\Models\TahunAjaran;
-use App\Models\Kelas;
 use App\Models\MataPelajaran;
+use App\Imports\JadwalImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JadwalController extends Controller
 {
@@ -21,7 +24,9 @@ class JadwalController extends Controller
     	$tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
     	$kelass = Kelas::all();
     	$mapels = MataPelajaran::all();
-    	return view('jadwal.index', compact('datas', 'tahunAjarans', 'kelass', 'mapels',));
+        $gurus = User::where('role', 'guru')->get();
+
+    	return view('jadwal.index', compact('datas', 'tahunAjarans', 'kelass', 'mapels', 'gurus'));
     }
 
     public function store(Request $request)
@@ -33,7 +38,6 @@ class JadwalController extends Controller
             'guru_id' => $request->guru_id,
     		'waktu' => $request->waktu,
     		'hari' => $request->hari,
-    		'minggu' => $request->minggu,
     	]);
     	return redirect()->back();
     }
@@ -65,5 +69,11 @@ class JadwalController extends Controller
     {
     	Jadwal::where('id', $request->id)->delete();
     	return redirect()->back();    
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new JadwalImport, $request->file('file'));
+        return redirect()->back();
     }
 }

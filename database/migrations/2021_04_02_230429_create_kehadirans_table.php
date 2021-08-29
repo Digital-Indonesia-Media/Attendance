@@ -19,6 +19,8 @@ class CreateKehadiransTable extends Migration
             $table->integer('kelas_id');
             $table->integer('mapel_id');
             $table->integer('pertemuan_id');
+            $table->dateTime('date_present')->nullable();
+            $table->string('izin')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

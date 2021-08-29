@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MataPelajaran;
 use App\Models\TahunAjaran;
+use App\Imports\MapelImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MapelController extends Controller
 {
@@ -18,6 +20,14 @@ class MapelController extends Controller
     	$datas = MataPelajaran::all();
         $tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
     	return view('mapel.mapel', compact('datas', 'tahunAjarans'));
+    }
+
+    public function tapel($id)
+    {
+        $tahunAjarans = TahunAjaran::where('id', $id)->first();
+        $mapels = MataPelajaran::where('tapel', $tahunAjarans->tapel)->get();
+        $datas = count($mapels);
+        return view('mapel.tapel', compact('mapels', 'tahunAjarans', 'datas'));
     }
 
     public function store(Request $request)
@@ -51,17 +61,23 @@ class MapelController extends Controller
 
     public function active(Request $request)
     {
-        TahunAjaran::where('id', $request->id)->update([
+        MataPelajaran::where('id', $request->id)->update([
             'status' => 1,
         ]);
-        return redirect()->route('dashboard');
+        return redirect()->back(); 
     }
 
     public function nonActive(Request $request)
     {
-        TahunAjaran::where('id', $request->id)->update([
+        MataPelajaran::where('id', $request->id)->update([
             'status' => 0,
         ]);
-        return redirect()->route('dashboard');
+        return redirect()->back(); 
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new MapelImport, $request->file('file'));
+        return redirect()->back();
     }
 }

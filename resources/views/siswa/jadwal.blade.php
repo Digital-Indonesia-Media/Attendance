@@ -1,59 +1,197 @@
 @extends('layouts.app')
 
+@section('title')
+Jadwal
+@endsection
+
+@section('sidebar-nav')
+<ul class="nav">
+  <li>
+    <a href=" {{ route('siswa') }}">
+      <i class="now-ui-icons design_app"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+  <li class="active">
+    <a href="{{ route('siswa-jadwal') }}">
+      <i class="now-ui-icons education_agenda-bookmark"></i>
+      <p>Jadwal</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('siswa-profile') }}">
+      <i class="now-ui-icons users_single-02"></i>
+      <p>Profil Pengguna</p>
+    </a>
+  </li>
+</ul>
+@endsection
+
+@section('username')
+{{ Auth::user()->name }}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">
-                    {{ __('Jadwal') }}
-                    <a href="{{ route('siswa') }}" style="padding-left: 85%;"><button class="btn btn-primary">Back</button></a>
-                </div>
+        <div class="card">
+            <div class="card-header">{{ __('Jadwal') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    
-                    <div>
-                        <table class="table" style="margin-top: 25px;">
+            <div class="card-body">
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                
+                <div class="card">
+                    <div class="card-header">Senin</div>
+
+                    <div class="card-body">
+                        <table class="table">
                             <thead>
-                                <th class="center">No</th>
-                                <th class="center">Tahun Pelajaran</th>
-                                <th class="center">Kelas</th>
-                                <th class="center">Mata Pelajaran</th>
-                                <th class="center">Hari</th>
-                                <th class="center">Waktu</th>
-                                <th class="center">Minggu Ke-</th>
-                                <th class="center">Aksi</th>
+                                <td>Kelas</td>
+                                <td>Mapel</td>
+                                <td>Waktu</td>
+                                <td>Aksi</td>
                             </thead>
-
-                            @foreach ($jadwals as $jadwal)
                             <tbody>
-                                <th class="center">{{ $jadwal->id }}</th>
-                                <th class="center">{{ $jadwal->tapel->tapel }}</th>
-                                <th class="center">{{ $jadwal->kelas->kelas }}</th>
-                                <th class="center">{{ $jadwal->mapel->mapel }}</th>
-                                <th class="center">{{ $jadwal->hari }}</th>
-                                <th class="center">{{ $jadwal->waktu }}</th>
-                                <th class="center">{{ $jadwal->minggu }}</th>
-                                <th class="center">
-                                    <button class="btn btn-sm btn-warning">
-                                        <a href="{{ route('jadwal-edit', $jadwal->id) }}">Edit</a> 
-                                    </button>
-                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-sm btn-danger">
-                                        Delete
-                                    </button>
-                                </th>
-                            </tbody>
+                            @foreach($datas as $data)
+                            @if ($data->hari == 'Senin')
+                            <tr>
+                                <td>{{ $data->kelas->kelas }}</td>
+                                <td>{{ $data->mapel->mapel }}</td>
+                                <td>{{ $data->waktu }}</td>
+                                <td>
+                                    <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                </td>
+                            </tr>
+                            @endif
                             @endforeach
+                            </tbody>
                         </table>
                     </div>
-                </div>
-            </div><br>
-        </div>
+                </div><br>
+
+                <div class="card">
+                    <div class="card-header">Selasa</div>
+
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <td>Kelas</td>
+                                <td>Mapel</td>
+                                <td>Waktu</td>
+                                <td>Aksi</td>
+                            </thead>
+                            <tbody>
+                            @foreach($datas as $data)
+                            @if ($data->hari == 'Selasa')
+                            <tr>
+                                <td>{{ $data->kelas->kelas }}</td>
+                                <td>{{ $data->mapel->mapel }}</td>
+                                <td>{{ $data->waktu }}</td>
+                                <td>
+                                    <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                </td>
+                            </tr>
+                            @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div><br>
+
+                <div class="card">
+                    <div class="card-header">Rabu</div>
+
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <td>Kelas</td>
+                                <td>Mapel</td>
+                                <td>Waktu</td>
+                                <td>Aksi</td>
+                            </thead>
+                            <tbody>
+                            @foreach($datas as $data)
+                            @if ($data->hari == 'Rabu')
+                            <tr>
+                                <td>{{ $data->kelas->kelas }}</td>
+                                <td>{{ $data->mapel->mapel }}</td>
+                                <td>{{ $data->waktu }}</td>
+                                <td>
+                                    <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                </td>
+                            </tr>
+                            @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div><br>
+
+                <div class="card">
+                    <div class="card-header">Kamis</div>
+
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <td>Kelas</td>
+                                <td>Mapel</td>
+                                <td>Waktu</td>
+                                <td>Aksi</td>
+                            </thead>
+                            <tbody>
+                            @foreach($datas as $data)
+                            @if ($data->hari == 'Kamis')
+                            <tr>
+                                <td>{{ $data->kelas->kelas }}</td>
+                                <td>{{ $data->mapel->mapel }}</td>
+                                <td>{{ $data->waktu }}</td>
+                                <td>
+                                    <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                </td>
+                            </tr>
+                            @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div><br>
+
+                <div class="card">
+                    <div class="card-header">Jumat</div>
+
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <td>Kelas</td>
+                                <td>Mapel</td>
+                                <td>Waktu</td>
+                                <td>Aksi</td>
+                            </thead>
+                            <tbody>
+                            @foreach($datas as $data)
+                            @if ($data->hari == 'Jumat')
+                            <tr>
+                                <td>{{ $data->kelas->kelas }}</td>
+                                <td>{{ $data->mapel->mapel }}</td>
+                                <td>{{ $data->waktu }}</td>
+                                <td>
+                                    <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                </td>
+                            </tr>
+                            @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div><br>
+            </div>
+        </div><br>
     </div>
 </div>
 @endsection

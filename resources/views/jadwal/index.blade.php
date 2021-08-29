@@ -1,26 +1,93 @@
 @extends('layouts.app')
 
+@section('title')
+Jadwal
+@endsection
+
+@section('sidebar-nav')
+<ul class="nav">
+  <li>
+    <a href=" {{ route('siswa') }}">
+      <i class="now-ui-icons design_app"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('tapel-index') }}">
+      <i class="fab fa-trello"></i>
+      <p>Tahun Pelajaran</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('mapel-index') }}">
+      <i class="fas fa-book"></i>
+      <p>Mata Pelajaran</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('admin-user') }}">
+      <i class="fas fa-users"></i>
+      <p>Pengguna</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('kelas-index') }}">
+      <i class="fas fa-warehouse"></i>
+      <p>Kelas</p>
+    </a>
+  </li>
+
+  <li class="active">
+    <a href="{{ route('jadwal-index') }}">
+      <i class="now-ui-icons education_agenda-bookmark"></i>
+      <p>Jadwal</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('pertemuan-index') }}">
+      <i class="fab fa-yelp"></i>
+      <p>Pertemuan</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('admin-profile') }}">
+      <i class="now-ui-icons users_single-02"></i>
+      <p>Profil Pengguna</p>
+    </a>
+  </li>
+</ul>
+@endsection
+
+@section('username')
+{{ Auth::user()->name }}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    {{ __('Jadwal') }}
-                    <a style="padding-left: 87%;" href="{{ route('admin') }}">
-                        <button class="end-0 btn btn-primary">Back</button>
-                    </a>
+                    <div class="float-left">
+                        <p>Tambahkan Jadwal</p>
+                    </div>
+                    <!-- Button trigger modal -->
+                    <div class="float-right">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Import Data
+                        </button>
+                    </div>       
                 </div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
                     <div>
-                        <form class="form" action="{{ route('jadwal-store') }}" method="POST">
+                        <form class="form" action="{{ route('jadwal-store') }}" method="POST" style="padding-top: 50px;">
                             @csrf
                             <div>
                                 <label>Tahun Pelajaran</label>
@@ -54,10 +121,8 @@
                                 <label>Nama Guru Yang Mengajar</label>
                                 <select name="guru_id" class="form-control" required="">
                                     <option value="" disabled selected hidden>Pilih Nama Guru</option>
-                                    @foreach ($datas as $data)
-                                    @foreach ($data->user() as $user)
-                                    <option value="{{ $data->guru_id }}">{{ $user->name }}</option>
-                                    @endforeach
+                                    @foreach ($gurus as $guru)
+                                    <option value="{{ $guru->id }}">{{ $guru->name }}</option>
                                     @endforeach
                                 </select>
                             </div><br>
@@ -76,49 +141,39 @@
                                 <label>Waktu</label>
                                 <input class="form-control" type="time" name="waktu" required="">
                             </div><br>
-                            <div>
-                                <label>Minggu</label>
-                                <!-- <input class="form-control" type="number" min="1" max="5" name="minggu" placeholder="Plih Minggu Keberapa"> -->
-                                <select name="minggu" class="form-control" required="">
-                                    <option value="" disabled selected hidden>Pilih Minggu keberapa</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                </select>
-                            </div><br>
-                            <button class="form-control btn btn-primary" type="submit">Submit</button>
+                            
+                            <button class="form-control btn btn-primary" type="submit">Tambahkan</button>
                         </form>
                     </div>
 
                     <div>
                         <table class="table" style="margin-top: 25px;">
                             <thead>
-                                <th class="center">No</th>
-                                <th class="center">Tahun Pelajaran</th>
-                                <th class="center">Kelas</th>
-                                <th class="center">Mata Pelajaran</th>
-                                <th class="center">Hari</th>
-                                <th class="center">Waktu</th>
-                                <th class="center">Minggu Ke-</th>
-                                <th class="center">Aksi</th>
+                                <td class="center">Tahun Pelajaran</td>
+                                <td class="center">Kelas</td>
+                                <td class="center">Mata Pelajaran</td>
+                                <td class="center">Hari</td>
+                                <td class="center">Waktu</td>
+                                <td class="center">Aksi</td>
                             </thead>
 
                             @foreach ($datas as $data)
                             <tbody>
-                                <th class="center">{{ $data->id }}</th>
-                                <th class="center">{{ $data->tapel->tapel }}</th>
-                                <th class="center">{{ $data->kelas->kelas }}</th>
-                                <th class="center">{{ $data->mapel->mapel }}</th>
-                                <th class="center">{{ $data->hari }}</th>
-                                <th class="center">{{ $data->waktu }}</th>
-                                <th class="center">{{ $data->minggu }}</th>
-                                <th class="center">
-                                    <button class="btn btn-sm btn-warning">
-                                        <a href="{{ route('jadwal-edit', $data->id) }}">Edit</a> 
-                                    </button>
+                                <td class="center">{{ $data->tapel->tapel }}</td>
+                                <td class="center">{{ $data->kelas->kelas }}</td>
+                                <td class="center">{{ $data->mapel->mapel }}</td>
+                                <td class="center">{{ $data->hari }}</td>
+                                <td class="center">{{ $data->waktu }}</td>
+                                <td class="center">
+                                    <a href="{{ route('jadwal-edit', $data->id) }}">
+                                        <button class="btn btn-sm btn-warning">
+                                            Edit 
+                                        </button>
+                                    </a>
                                     <button onclick="hapus( {{$data->id}}  )" class="btn btn-sm btn-danger">
                                         Delete
                                     </button>
-                                </th>
+                                </td>
                             </tbody>
                             @endforeach
                         </table>
@@ -128,6 +183,34 @@
         </div>
     </div>
 </div>
+
+<!-- Modal untuk tambah data -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pengguna</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('jadwal-import') }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div>
+                        <input type="file" name="file" required="">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Selesai</button>
+                <button type="submit" class="btn btn-primary">Import</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Akhir modal -->
 @endsection
 
 @section('js')

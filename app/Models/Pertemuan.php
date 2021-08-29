@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class Pertemuan extends Model
 {
     public $fillable = [
-    	'mapel', 'pertemuan_ke', 'pembahasan',
+    	'tapel_id', 'kelas_id','mapel', 'pertemuan_ke', 'pembahasan', 'status', 'code', 'data_expired',
     ];
 
     public function kehadiran()

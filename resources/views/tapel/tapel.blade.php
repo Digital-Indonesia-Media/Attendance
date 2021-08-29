@@ -76,13 +76,13 @@
     <script>
         function hapus(id){
             Swal.fire({
-              title: 'Are you sure?',
-              text: 'You wan\'t be able to revert this!',
+              title: 'Apakah kamu yakin?',
+              text: 'Kamu tidak dapat memulihkan ini kembali!',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
+              confirmButtonText: 'Ya, hapus saja!'
             }).then((result) => {
               if (result.isConfirmed) {
                 $.ajax({
@@ -94,9 +94,9 @@
                     },
                     success: function (data) {
                         Swal.fire(
-                          'Deleted!',
-                          'Your file has been deleted.',
-                          'success'
+                          'Terhapus!',
+                          'File anda telah berhasil dihapus.',
+                          'Berhasil'
                         );
                         location.reload()
                     }         
@@ -106,13 +106,13 @@
         }
         function publish(id){
             Swal.fire({
-              title: 'Are you sure?',
-              text: 'After you publish, you can\'t delete this!',
+              title: 'Apakah kamu yakin?',
+              text: 'Setelah kamu menerbitkan, file ini tidak dapat dihapus!',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, publish it!'
+              confirmButtonText: 'Ya, terbitkan!'
             }).then((result) => {
               if (result.isConfirmed) {
                 $.ajax({
@@ -124,9 +124,9 @@
                     },
                     success: function (data) {
                         Swal.fire(
-                          'Publish!',
-                          'Your file has been Publish.',
-                          'success'
+                          'Terbit!',
+                          'File anda telah berhasil diterbitkan.',
+                          'Berhasil'
                         );
                         location.reload()
                     }         

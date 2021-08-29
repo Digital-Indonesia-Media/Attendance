@@ -1,75 +1,141 @@
 @extends('layouts.app')
 
+@section('title')
+Tahun Pelajaran
+@endsection
+
+@section('sidebar-nav')
+<ul class="nav">
+  <li>
+    <a href=" {{ route('siswa') }}">
+      <i class="now-ui-icons design_app"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+  <li class="active">
+    <a href="{{ route('tapel-index') }}">
+      <i class="fab fa-trello"></i>
+      <p>Tahun Pelajaran</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('mapel-index') }}">
+      <i class="fas fa-book"></i>
+      <p>Mata Pelajaran</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('admin-user') }}">
+      <i class="fas fa-users"></i>
+      <p>Pengguna</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('kelas-index') }}">
+      <i class="fas fa-warehouse"></i>
+      <p>Kelas</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('jadwal-index') }}">
+      <i class="now-ui-icons education_agenda-bookmark"></i>
+      <p>Jadwal</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('pertemuan-index') }}">
+      <i class="fab fa-yelp"></i>
+      <p>Pertemuan</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('admin-profile') }}">
+      <i class="now-ui-icons users_single-02"></i>
+      <p>User Profile</p>
+    </a>
+  </li>
+</ul>
+@endsection
+
+@section('username')
+{{ Auth::user()->name }}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Add Tapel') }}</div>
+                <div class="card-header">{{ __('Tambahkan Tahun Pelajaran') }}</div>
 
                 <div class="card-body">
                     <div>
                         <form class="form" action="{{ route('tapel-store') }}" method="POST">
                             @csrf
                             <div>
-                                <label>Tapel</label>
+                                <label>Tahun Pelajaran</label>
                                 <input type="text" name="tapel" class="form-control" placeholder="Insert tapel" required="">
                                 <br>
                             </div>
                             <div>
-                                <label>Start Tapel On</label>
+                                <label>Tahun Pelajaran dimulai pada</label>
                                 <input type="date" name="started_at" class="form-control" placeholder="Tapel will start on" required="">
                                 <br>
                             </div>
-                            <button class="form-control btn btn-primary" type="submit">Add</button>
+                            <button class="form-control btn btn-primary" type="submit">Tambahkan</button>
                         </form>
                     </div>
                 </div>
             </div><br>
 
             @foreach ($tahunAjarans as $tahunAjaran)
-            <div class="card">
-                <div class="card-header" style="display: flex; ">
-                    <div>
-                        <p style="margin: auto; padding: 7px;">Tapel {{ $tahunAjaran->tapel }}</p>
-                    </div>
-                    <div style="padding-left: 52%; margin: auto;">
-                        @if (($tahunAjaran->status) == 0)
-                            <button class="btn btn-warning">
-                                <a href="{{ route('tapel-edit', $tahunAjaran->id) }}">Edit</a> 
-                            </button>
-                            <button onclick="hapus( {{ $tahunAjaran->id }}  )" class="btn btn-danger">
-                                Delete
-                            </button>
-                            <button onclick="publish( {{ $tahunAjaran->id }} )" class="btn btn-primary">
-                                Publish
-                            </button>
-                        @elseif($tahunAjaran->status < 0)
-                            <div style="margin: auto;">
-                                Expired
-                            </div>
-                        @elseif($tahunAjaran->status == 1)
-                            <div style="margin: auto;">
-                                Active
-                            </div>
-                        @elseif($tahunAjaran->started_at != null)
-                            <div style="margin: auto;">
-                                Started
-                            </div>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+            <a href="{{ route('tapel-desc', ['id' => $tahunAjaran->id]) }}">
+                <div class="card">
+                    <div class="card-header" style="display: flex; ">
+                        <div>
+                            <p style="margin: auto; padding: 7px;">Tapel {{ $tahunAjaran->tapel }}</p>
                         </div>
-                    @endif
-                    <input type="hidden" name="id" value="$tahunAjaran-id">
-                    <a href="{{ route('tapel-desc', ['id' => $tahunAjaran->id]) }}">Lihat selengkapnya</a>
-                </div>
-            </div><br>
+                        <div style="margin: auto; padding-left: 320px;">
+                            @if (($tahunAjaran->status) == 0)
+                                <a href="{{ route('tapel-edit', $tahunAjaran->id) }}">
+                                    <button class="btn btn-warning">
+                                        Ganti
+                                    </button>
+                                </a>
+                                <button onclick="hapus( {{ $tahunAjaran->id }}  )" class="btn btn-danger">
+                                    Hapus
+                                </button>
+                                <button onclick="publish( {{ $tahunAjaran->id }} )" class="btn btn-primary">
+                                    Publikasi
+                                </button>
+                            @elseif($tahunAjaran->status < 0)
+                                <div style="margin: auto;">
+                                    Tidak Berlaku
+                                </div>
+                            @elseif($tahunAjaran->status == 1)
+                                <div style="margin: auto;">
+                                    Aktif
+                                </div>
+                            @elseif($tahunAjaran->started_at != null)
+                                <div style="margin: auto;">
+                                    Mulai
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <input type="hidden" name="id" value="$tahunAjaran-id">
+                    </div>
+                </div><br>
+            </a>
             @endforeach
         </div>
     </div>
