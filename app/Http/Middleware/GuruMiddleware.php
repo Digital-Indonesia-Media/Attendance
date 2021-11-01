@@ -19,6 +19,9 @@ class GuruMiddleware
         if (Auth::user()->role == 'siswa') {
             return redirect()->route('siswa');
         }
+        if (Auth::user()->role == 'ortu') {
+            return redirect()->route('ortu');
+        }
         if (Auth::user()->role == 'guru') {
             return $next($request);
         }

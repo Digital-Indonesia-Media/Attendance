@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,12 +24,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect('login');
         // return view('home');
+        return redirect('login');
     }
 
     public function login()
     {
+        $user = Auth::User();
+        if ($user->role == 'admin') {
+            return redirect('admin');
+        }
+
+        if ($user->role == 'guru') {
+            return redirect('guru');
+        }
+
+        if ($user->role == 'siswa') {
+            return redirect('siswa');
+        }
         return redirect('login');
     }
 

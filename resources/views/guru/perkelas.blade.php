@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{ $kelass[0]->kelas }}
+Data Kelas
 @endsection
 
 @section('sidebar-nav')
@@ -46,7 +46,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    {{ $kelass[0]->kelas }}
+                    Data Kelas {{ $kelass->kelas }}
                 </div>
 
                 <div class="card-body">
@@ -56,13 +56,19 @@
                                 <td>Name</td>
                                 <td>Role</td>
                                 <td>Gmail</td>
+                                <td>Riwayat</td>
                             </tdead>
 
                             @foreach ($datas as $data)
                             <tbody>
-                                <td style="width: 35%;">{{ $data->name }}</td>
-                                <td style="width: 20%;">{{ $data->role }}</td>
-                                <td style="width: 20%;">{{ $data->email }}</td>
+                                <td style="width: 20%;">{{ $data->name }}</td>
+                                <td style="width: 15%;">{{ $data->role }}</td>
+                                <td style="width: 15%;">{{ $data->email }}</td>
+                                <td style="width: 15%;">
+                                    <a href="{{ route('guru-riwayat', $data->id) }}">
+                                        <button class="btn btn-primary center" style="margin-top: 5px;">Lihat</button>
+                                    </a>
+                                </td>
                             </tbody>
                             @endforeach
                         </table>
@@ -72,6 +78,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('js')

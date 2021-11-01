@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class OrtuMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,13 +20,13 @@ class AdminMiddleware
             return redirect()->route('siswa');
         }
         if (Auth::user()->role == 'ortu') {
-            return redirect()->route('ortu');
+            return $next($request);
         }
         if (Auth::user()->role == 'guru') {
             return redirect()->route('guru');
         }
         if (Auth::user()->role == 'admin') {
-            return $next($request);
+            return redirect()->route('admin');
         }
     }
 }

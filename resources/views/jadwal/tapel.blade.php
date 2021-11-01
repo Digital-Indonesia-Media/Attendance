@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Mata Pelajaran
+Jadwal
 @endsection
 
 @section('sidebar-nav')
@@ -20,7 +20,7 @@ Mata Pelajaran
     </a>
   </li>
 
-  <li class="active">
+  <li>
     <a href="{{ route('mapel-index') }}">
       <i class="fas fa-book"></i>
       <p>Mata Pelajaran</p>
@@ -41,7 +41,7 @@ Mata Pelajaran
     </a>
   </li>
 
-  <li>
+  <li class="active">
     <a href="{{ route('jadwal-index') }}">
       <i class="now-ui-icons education_agenda-bookmark"></i>
       <p>Jadwal</p>
@@ -73,61 +73,35 @@ Mata Pelajaran
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                <div class="card-header">
+                    <div class="float-left">
+                        <p>Pilih Kelas</p>
+                    </div>    
+                </div>
 
+                <div class="card-body">
+                    <input type="hidden" name="tapel" value="{{ $tapel->id }}">
                     <div>
-                        @if ($datas == 0)
-                        <div style="color: #f96332;">
-                            Mata Pelajaran Masih Belum Tersedia
-                        </div>
-                        @else
                         <table class="table" style="margin-top: 25px;">
                             <thead>
-                                <th>Mata Pelajaran</th>
-                                <th>Status</th>
-                                <th>Tahun Pelajaran</th>
-                                <th class="center">Aksi</th>
+                                <td class="center">Kelas</td>
+                                <td class="center">Keterangan</td>
                             </thead>
-                            @foreach ($mapels as $mapel)
+
+                            @foreach ($kelass as $kelas)
                             <tbody>
-                                <td>{{ $mapel->mapel }}</td>
-
-                                @if (($mapel->status) == 1)
-                                <td>
-                                    Aktif
-                                </td>
-                                @elseif (($mapel->status) == 0)
-                                <td>
-                                    Tidak Aktif
-                                </td>
-                                @endif
-
-                                <td>{{ $mapel->tapel }}</td>
+                                <td class="center">{{ $kelas->kelas }}</td>
                                 <td class="center">
-                                    <a href="{{ route('mapel-edit', $mapel->id) }}"><button class="btn btn-warning margin" style="width: 110px; margin-top: 5px;">Edit</button></a>
-                                    <button class="btn btn-danger margin" style="width: 110px; margin-top: 5px;" onclick="hapus({{ $mapel->id }})">Delete</button>
-                                    @if (($mapel->status) == 1)
-                                    <form class="margin" action="{{ route('mapel-nonActive') }}" method="POST">
-                                      @csrf
-                                      <button class="btn btn-primary">Non-Active</button>
+                                    <form action="{{ route('jadwal-kelas', $kelas->id) }}">
+                                        <input type="hidden" name="tapel" value="{{ $tapel->id }}">
+                                        <button type="submit" class="btn btn-warning" style="width: 100px; margin: 5px;">
+                                            Pergi 
+                                        </button>
                                     </form>
-                                    @elseif (($mapel->status) == 0)
-                                    <form class="margin" action="{{ route('mapel-active') }}" method="POST">
-                                      @csrf
-                                      <button class="btn btn-primary">Active</button>
-                                    </form>
-                                    @endif
                                 </td>
                             </tbody>
                             @endforeach
                         </table>
-                        @endif
-                        
                     </div>
                 </div>
             </div>
@@ -140,13 +114,13 @@ Mata Pelajaran
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Mata Pelajaran</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pengguna</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('mapel-import') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('jadwal-import') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div>
                         <input type="file" name="file" required="">
@@ -160,17 +134,18 @@ Mata Pelajaran
         </div>
     </div>
 </div>
+
 <!-- Akhir modal -->
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
-    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+    <script src=" {{ asset('js/jquery-3.4.1.min.js') }} "></script>
+    <script src=" {{ asset('js/sweetalert2.all.min.js') }} "></script>
     <script>
-        function hapus(id) {
+        function hapus(id){
             Swal.fire({
               title: 'Are you sure?',
-              text: "You won't be able to revert this!",
+              text: 'You wan\'t be able to revert this!',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -180,30 +155,21 @@ Mata Pelajaran
               if (result.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('mapel-delete') }}",
+                    url: "{{route('jadwal-delete')}}",
                     data: {
                         _token: "{{ csrf_token() }}",
-                        id: id
+                        id:id
                     },
                     success: function (data) {
                         Swal.fire(
                           'Deleted!',
                           'Your file has been deleted.',
                           'success'
-                        )
+                        );
                         location.reload()
-                    },
-                    error: function (error) {
-                        console.log(error);
-                        console.log(error.responseText);
-                        Swal.fire(
-                          'Error!',
-                          'Terjadi kesalahan',
-                          'error'
-                        )
-                    }       
-                });              
-               }
+                    }         
+                });
+              }
             })
         }
     </script>

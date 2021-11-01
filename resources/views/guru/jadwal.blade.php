@@ -45,7 +45,7 @@ Jadwal
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Jadwal') }}</div>
+                <div class="card-header">Jadwal <label style="color: #f96332;">{{ $datas[0]->mapel->mapel }}</label></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -59,25 +59,35 @@ Jadwal
 
                         <div class="card-body">
                             <table class="table">
+                            @if($senins == 0)
+                                <thead class="center" style="width:100%; text-align: center;">
+                                    <td>Tidak ada jam mengajar</td>
+                                </thead>
+                            @else
                                 <thead>
-                                    <td>Kelas</td>
-                                    <td>Mapel</td>
-                                    <td>Waktu</td>
-                                    <td>Aksi</td>
+                                    <td style="width: 30%;">Kelas</td>
+                                    <td style="width: 30%;">Waktu</td>
+                                    <td class="center" style="width: 40%;">Keterangan</td>
                                 </thead>
                                 <tbody>
                                 @foreach($datas as $data)
                                 @if ($data->hari == 'Senin')
                                 <tr>
                                     <td>{{ $data->kelas->kelas }}</td>
-                                    <td>{{ $data->mapel->mapel }}</td>
                                     <td>{{ $data->waktu }}</td>
-                                    <td>
-                                        <a href="{{ route('guru-pertemuan', $data->kelas) }}">Selengkapnya</a>
+                                    <td class="center">
+                                        <form action="{{ route('guru-pertemuan', $data->id) }}">
+                                            <input type="hidden" name="kelas_id" value="{{ $data->kelas_id }}">
+                                            <button type="submit" class="btn btn-warning">
+                                                Atur Pertemuan 
+                                            </button>
+                                        </form>
+                                        <!-- <a href="{{ route('guru-pertemuan', $data->id) }}">Selengkapnya</a> -->
                                     </td>
                                 </tr>
                                 @endif
                                 @endforeach
+                            @endif
                                 </tbody>
                             </table>
                         </div>
@@ -88,25 +98,34 @@ Jadwal
 
                         <div class="card-body">
                             <table class="table">
+                            @if($selasas == 0)
+                                <thead class="center" style="width:100%; text-align: center;">
+                                    <td>Tidak ada jam mengajar</td>
+                                </thead>
+                            @else
                                 <thead>
-                                    <td>Kelas</td>
-                                    <td>Mapel</td>
-                                    <td>Waktu</td>
-                                    <td>Aksi</td>
+                                    <td style="width: 30%;">Kelas</td>
+                                    <td style="width: 30%;">Waktu</td>
+                                    <td class="center" style="width: 40%;">Keterangan</td>
                                 </thead>
                                 <tbody>
                                 @foreach($datas as $data)
                                 @if ($data->hari == 'Selasa')
                                 <tr>
                                     <td>{{ $data->kelas->kelas }}</td>
-                                    <td>{{ $data->mapel->mapel }}</td>
                                     <td>{{ $data->waktu }}</td>
-                                    <td>
-                                        <a href="{{ route('guru-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                    <td class="center">
+                                        <form action="{{ route('guru-pertemuan', $data->id) }}">
+                                            <input type="hidden" name="kelas_id" value="{{ $data->kelas_id }}">
+                                            <button type="submit" class="btn btn-warning">
+                                                Atur Pertemuan 
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endif
                                 @endforeach
+                            @endif
                                 </tbody>
                             </table>
                         </div>
@@ -117,25 +136,34 @@ Jadwal
 
                         <div class="card-body">
                             <table class="table">
+                            @if($rabus == 0)
+                                <thead class="center" style="width:100%; text-align: center;">
+                                    <td>Tidak ada jam mengajar</td>
+                                </thead>
+                            @else
                                 <thead>
-                                    <td>Kelas</td>
-                                    <td>Mapel</td>
-                                    <td>Waktu</td>
-                                    <td>Aksi</td>
+                                    <td style="width: 30%;">Kelas</td>
+                                    <td style="width: 30%;">Waktu</td>
+                                    <td class="center" style="width: 40%;">Keterangan</td>
                                 </thead>
                                 <tbody>
                                 @foreach($datas as $data)
                                 @if ($data->hari == 'Rabu')
-                                <tr>
-                                    <td>{{ $data->kelas->kelas }}</td>
-                                    <td>{{ $data->mapel->mapel }}</td>
-                                    <td>{{ $data->waktu }}</td>
-                                    <td>
-                                        <a href="{{ route('guru-pertemuan', $data->mapel) }}">Selengkapnya</a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ $data->kelas->kelas }}</td>
+                                        <td>{{ $data->waktu }}</td>
+                                        <td class="center">
+                                            <form action="{{ route('guru-pertemuan', $data->id) }}">
+                                                <input type="hidden" name="kelas_id" value="{{ $data->kelas_id }}">
+                                                <button type="submit" class="btn btn-warning">
+                                                    Atur Pertemuan 
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endif
                                 @endforeach
+                            @endif
                                 </tbody>
                             </table>
                         </div>
@@ -146,25 +174,34 @@ Jadwal
 
                         <div class="card-body">
                             <table class="table">
+                            @if($kamiss == 0)
+                                <thead class="center" style="width:100%; text-align: center;">
+                                    <td>Tidak ada jam mengajar</td>
+                                </thead>
+                            @else
                                 <thead>
-                                    <td>Kelas</td>
-                                    <td>Mapel</td>
-                                    <td>Waktu</td>
-                                    <td>Aksi</td>
+                                    <td style="width: 30%;">Kelas</td>
+                                    <td style="width: 30%;">Waktu</td>
+                                    <td class="center" style="width: 40%;">Keterangan</td>
                                 </thead>
                                 <tbody>
                                 @foreach($datas as $data)
                                 @if ($data->hari == 'Kamis')
                                 <tr>
                                     <td>{{ $data->kelas->kelas }}</td>
-                                    <td>{{ $data->mapel->mapel }}</td>
                                     <td>{{ $data->waktu }}</td>
-                                    <td>
-                                        <a href="{{ route('guru-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                    <td class="center">
+                                        <form action="{{ route('guru-pertemuan', $data->id) }}">
+                                            <input type="hidden" name="kelas_id" value="{{ $data->kelas_id }}">
+                                            <button type="submit" class="btn btn-warning">
+                                                Atur Pertemuan 
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endif
                                 @endforeach
+                            @endif
                                 </tbody>
                             </table>
                         </div>
@@ -175,25 +212,34 @@ Jadwal
 
                         <div class="card-body">
                             <table class="table">
+                            @if($jumats == 0)
+                                <thead class="center" style="width:100%; text-align: center;">
+                                    <td>Tidak ada jam mengajar</td>
+                                </thead>
+                            @else
                                 <thead>
-                                    <td>Kelas</td>
-                                    <td>Mapel</td>
-                                    <td>Waktu</td>
-                                    <td>Aksi</td>
+                                    <td style="width: 30%;">Kelas</td>
+                                    <td style="width: 30%;">Waktu</td>
+                                    <td class="center" style="width: 40%;">Keterangan</td>
                                 </thead>
                                 <tbody>
                                 @foreach($datas as $data)
                                 @if ($data->hari == 'Jumat')
                                 <tr>
                                     <td>{{ $data->kelas->kelas }}</td>
-                                    <td>{{ $data->mapel->mapel }}</td>
                                     <td>{{ $data->waktu }}</td>
-                                    <td>
-                                        <a href="{{ route('guru-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                    <td class="center">
+                                        <form action="{{ route('guru-pertemuan', $data->id) }}">
+                                            <input type="hidden" name="kelas_id" value="{{ $data->kelas_id }}">
+                                            <button type="submit" class="btn btn-warning">
+                                                Atur Pertemuan 
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endif
                                 @endforeach
+                            @endif
                                 </tbody>
                             </table>
                         </div>

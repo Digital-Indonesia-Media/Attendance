@@ -28,16 +28,16 @@ Tahun Pelajaran
   </li>
 
   <li>
-    <a href="{{ route('admin-user') }}">
-      <i class="fas fa-users"></i>
-      <p>Pengguna</p>
+    <a href="{{ route('kelas-index') }}">
+      <i class="fas fa-warehouse"></i>
+      <p>Kelas</p>
     </a>
   </li>
 
   <li>
-    <a href="{{ route('kelas-index') }}">
-      <i class="fas fa-warehouse"></i>
-      <p>Kelas</p>
+    <a href="{{ route('admin-user') }}">
+      <i class="fas fa-users"></i>
+      <p>Pengguna</p>
     </a>
   </li>
 

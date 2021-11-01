@@ -81,12 +81,12 @@ Tahun Pelajaran
                             @csrf
                             <div>
                                 <label>Tahun Pelajaran</label>
-                                <input type="text" name="tapel" class="form-control" placeholder="Insert tapel" required="">
+                                <input type="text" name="tapel" class="form-control" placeholder="Masukkan tapel" required="">
                                 <br>
                             </div>
                             <div>
                                 <label>Tahun Pelajaran dimulai pada</label>
-                                <input type="date" name="started_at" class="form-control" placeholder="Tapel will start on" required="">
+                                <input type="date" name="started_at" class="form-control" placeholder="Tahun Pelajaran akan dimulai pada tanggal" required="">
                                 <br>
                             </div>
                             <button class="form-control btn btn-primary" type="submit">Tambahkan</button>
@@ -97,22 +97,22 @@ Tahun Pelajaran
 
             @foreach ($tahunAjarans as $tahunAjaran)
             <a href="{{ route('tapel-desc', ['id' => $tahunAjaran->id]) }}">
-                <div class="card">
-                    <div class="card-header" style="display: flex; ">
-                        <div>
+                <div class="card" style="width: 100%;">
+                    <div class="card-header" style="display: flex; width: 100%;">
+                        <div style="width: 100%;">
                             <p style="margin: auto; padding: 7px;">Tapel {{ $tahunAjaran->tapel }}</p>
                         </div>
-                        <div style="margin: auto; padding-left: 320px;">
+                        <div class="center" style="margin: auto; width: 50%;">
                             @if (($tahunAjaran->status) == 0)
                                 <a href="{{ route('tapel-edit', $tahunAjaran->id) }}">
-                                    <button class="btn btn-warning">
-                                        Ganti
+                                    <button class="btn btn-warning" style="width: 100px;">
+                                        Edit
                                     </button>
                                 </a>
-                                <button onclick="hapus( {{ $tahunAjaran->id }}  )" class="btn btn-danger">
+                                <button onclick="hapus( {{ $tahunAjaran->id }}  )" class="btn btn-danger" style="width: 100px;">
                                     Hapus
                                 </button>
-                                <button onclick="publish( {{ $tahunAjaran->id }} )" class="btn btn-primary">
+                                <button onclick="publish( {{ $tahunAjaran->id }} )" class="btn btn-primary" style="width: 100px;">
                                     Publikasi
                                 </button>
                             @elseif($tahunAjaran->status < 0)

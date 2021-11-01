@@ -27,17 +27,17 @@ Pengguna
     </a>
   </li>
 
-  <li class="active">
-    <a href="{{ route('admin-user') }}">
-      <i class="fas fa-users"></i>
-      <p>Pengguna</p>
-    </a>
-  </li>
-
   <li>
     <a href="{{ route('kelas-index') }}">
       <i class="fas fa-warehouse"></i>
       <p>Kelas</p>
+    </a>
+  </li>
+
+  <li class="active">
+    <a href="{{ route('admin-user') }}">
+      <i class="fas fa-users"></i>
+      <p>Pengguna</p>
     </a>
   </li>
 
@@ -83,35 +83,35 @@ Pengguna
                     @endif
 
                     <div class="content">
-						<form action="{{ route('user-update') }}" method="POST">
+						<form action="{{ route('user-update', ) }}" method="POST">
 							@csrf
 							@method('PUT')
 							<input type="hidden" name="id" value="{{ $data->id }}">
-                            <div>
-                                <div>
-                                    <label>Name</label>
-                                    <input class="form-control" type="text" name="name" value="{{ $data->name }}">
-                                </div>
-                                <br>
+              <div>
+                  <div>
+                      <label>Name</label>
+                      <input class="form-control" type="text" name="name" value="{{ $data->name }}">
+                  </div>
+                  <br>
 
-                                <div>
-                                    <label>Email</label>
-                                    <input class="form-control" type="email" name="email" value="{{ $data->email }}">
-                                </div>
-                                <br>
+                  <div>
+                      <label>Email</label>
+                      <input class="form-control" type="email" name="email" value="{{ $data->email }}">
+                  </div>
+                  <br>
 
-                                <div>
-                                    <label for="role">Role</label>
-                                    <select class="form-control" id="role" name="role">
-                                        <option value="student">Student</option>
-                                        <option value="teacher">Teacher</option>
-                                    </select>
-                                    <!-- <input class="form-control" type="text" name="role"> -->
-                                </div>
-                                <br>
+                  <div>
+                      <label for="role">Role</label>
+                      <select class="form-control" id="role" name="role">
+                          <option value="siswa">Siswa</option>
+                          <option value="guru">Guru</option>
+                      </select>
+                      <!-- <input class="form-control" type="text" name="role"> -->
+                  </div>
+                  <br>
 
-                                <button class="form-control btn btn-primary">Perbarui</button>
-                            </div>
+                  <button class="form-control btn btn-primary">Perbarui</button>
+              </div>
 						</form>
 					</div>
                 </div>

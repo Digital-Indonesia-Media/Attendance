@@ -31,8 +31,9 @@ class PertemuanController extends Controller
 
     public function store(Request $request)
     {
-
     	Pertemuan::create([
+            'tapel_id' => $request->tapel,
+            'kelas_id' => $request->kelas,
             'mapel' => $request->mapel,
             'pertemuan_ke' => $request->pertemuan_ke,
             'pembahasan' => $request->pembahasan,
@@ -65,6 +66,35 @@ class PertemuanController extends Controller
     {
     	Pertemuan::where('id', $request->id)->delete();
     	return redirect()->back();    
+    }
+
+    public function tapel($id)
+    {
+        $tapel = TahunAjaran::where('id', $id)->first();
+        $kelass = Kelas::where('tapel', $tapel->tapel)->get();
+
+        // return$kelass;
+        return view('pertemuan.tapel', compact('kelass', 'tapel'));    
+    }
+
+    public function kelas(Request $request, $id)
+    {
+        $tapel = TahunAjaran::where('id', $request->tapel)->first();
+        $kelas = Kelas::where('id', $id)->first();
+        $mapels = MataPelajaran::where('tapel', $tapel->tapel)->get();
+
+        return view('pertemuan.kelas', compact('mapels', 'tapel', 'kelas'));    
+    }
+
+    public function mapel(Request $request, $id)
+    {
+        $tapel = TahunAjaran::where('id', $request->tapel)->first();
+        $mapel = MataPelajaran::where('id', $id)->first();
+        $kelas = Kelas::where('id', $request->kelas)->first();
+        $pertemuans = Pertemuan::where('tapel_id', $tapel->id)->where('kelas_id', $kelas->id)->get();
+
+        // return$pertemuans;
+        return view('pertemuan.mapel', compact('pertemuans', 'kelas', 'mapel', 'tapel'));
     }
 
     public function import(Request $request)

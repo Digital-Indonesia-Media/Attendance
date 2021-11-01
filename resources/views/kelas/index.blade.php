@@ -27,17 +27,17 @@ Kelas
     </a>
   </li>
 
-  <li>
-    <a href="{{ route('admin-user') }}">
-      <i class="fas fa-users"></i>
-      <p>Pengguna</p>
-    </a>
-  </li>
-
   <li class="active">
     <a href="{{ route('kelas-index') }}">
       <i class="fas fa-warehouse"></i>
       <p>Kelas</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('admin-user') }}">
+      <i class="fas fa-users"></i>
+      <p>Pengguna</p>
     </a>
   </li>
 

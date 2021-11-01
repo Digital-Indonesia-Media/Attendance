@@ -19,6 +19,9 @@ class SiswaMiddleware
         if (Auth::user()->role == 'siswa') {
             return $next($request);
         }
+        if (Auth::user()->role == 'ortu') {
+            return redirect()->route('ortu');
+        }
         if (Auth::user()->role == 'guru') {
             return redirect()->route('guru');
         }

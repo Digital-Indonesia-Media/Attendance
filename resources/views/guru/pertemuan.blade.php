@@ -46,7 +46,7 @@ Jadwal
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    {{ __('Pertemuan') }}
+                    Pertemuan {{ $mapels->mapel }} {{ $kelas_id->kelas }}
                 </div>
 
                 <div class="card-body">
@@ -59,10 +59,10 @@ Jadwal
                     <div>
                         <form class="form" action="{{ route('guru-pertemuan-store') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="kelas_id" value="{{ $kelas_id[0]->id }}">
+                            <input type="hidden" name="kelas_id" value="{{ $kelas_id->id }}">
                             <div>
                                 <label>Mapel</label>
-                                <input type="text" name="mapel" class="form-control" value="{{ $mapels[0]->mapel }}">
+                                <input type="text" name="mapel" class="form-control" value="{{ $mapels->mapel }}">
                             </div><br>
                             <div>
                                 <label>Pertemuan Ke-</label>
@@ -78,33 +78,34 @@ Jadwal
                         <table class="table">
                             <thead>
                                 <td class="center">Pertemuan Ke-</td>
-                                <td class="center">Mapel</td>
                                 <td class="center">Pembahasan</td>
                                 <td class="center">Aksi</td>
                             </thead>
                             @foreach($pertemuans as $pertemuan)
                             <tbody>
                                 <td class="center">{{ $pertemuan->pertemuan_ke }}</td>
-                                <td class="center">{{ $pertemuan->mapel }}</td>
                                 <td class="center">{{ $pertemuan->pembahasan }}</td>
                                 <td class="center">
                                     @if ($pertemuan->status == 1)
-                                    <input class="form-control center" style="width: 200px; margin-top: 5px; display: inherit!important;" type="text" name="code" value="{{$pertemuan->code}}">
-                                    <a href="{{ route('guru-kehadiran-siswa', $pertemuan->id) }}"><button class="btn btn-success center" style="width: 200; margin: 5px 0px 0px 15px;">
+                                    <input class="form-control center" style="width: 150px; margin-top: 5px; display: inherit!important;" type="text" name="code" value="{{$pertemuan->code}}">
+                                    <a href="{{ route('guru-kehadiran-siswa', $pertemuan->id) }}"><button class="btn btn-success center" style="margin: 5px 0px 0px 5px;">
                                         Lihat Kehadiran Siswa
                                     </button></a>
                                     @else
-                                    <a href="{{ route('guru-pertemuan-edit', $pertemuan->id) }}">
-                                        <button class="btn btn-warning">
-                                            Edit
+                                    <form action="{{route('guru-pertemuan-publish')}}" method="POST">
+                                        @csrf
+                                        <a href="{{ route('guru-pertemuan-edit', $pertemuan->id) }}">
+                                            <button class="btn btn-warning" style="width: 100px; margin-top: 5px;">
+                                                Edit
+                                            </button>
+                                        </a>
+                                        <button onclick="hapus( {{$pertemuan->id}}  )" class="btn btn-danger" style="width: 100px; margin-top: 5px;">
+                                            Delete
                                         </button>
-                                    </a>
-                                    <button onclick="hapus( {{$pertemuan->id}}  )" class="btn btn-danger">
-                                        Delete
-                                    </button>
-                                    <button onclick="publish( {{$pertemuan->id}}  )" class="btn btn-primary">
-                                        Publish
-                                    </button>
+                                            
+                                        <button onclick="publish( {{$pertemuan->id}} )" class="btn btn-primary" style="width: 100px; margin-top: 5px;">
+                                            Publish
+                                        </button>
                                     @endif
                                 </td>
                             </tbody>
@@ -138,7 +139,7 @@ Jadwal
                     url: "{{route('guru-pertemuan-delete')}}",
                     data: {
                         _token: "{{ csrf_token() }}",
-                        id:id
+                        id:id,
                     },
                     success: function (data) {
                         Swal.fire(
@@ -168,12 +169,12 @@ Jadwal
                     url: "{{route('guru-pertemuan-publish')}}",
                     data: {
                         _token: "{{ csrf_token() }}",
-                        id:id
+                        id:id,
                     },
                     success: function (data) {
                         Swal.fire(
-                          'Terbit!',
-                          'File anda telah berhasil diterbitkan.',
+                          'Publish!',
+                          'File anda telah berhasil dipublish.',
                           'Berhasil'
                         );
                         location.reload()

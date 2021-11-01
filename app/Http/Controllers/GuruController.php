@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KehadiranExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\carbon;
@@ -20,8 +22,8 @@ class GuruController extends Controller
     	$tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
     	$kelass = Kelas::all();
     	$mapels = MataPelajaran::all();
-        $user = User::where('name', Auth::user()->name)->get();
-    	$datas = Jadwal::where('guru_id', $user[0]->id)->get();
+        $user = User::where('name', Auth::user()->name)->first();
+    	$datas = Jadwal::where('guru_id', $user->id)->get();
 
     	return view('guru.index', compact('datas', 'tahunAjarans', 'kelass', 'mapels'));
     }
@@ -49,15 +51,14 @@ class GuruController extends Controller
         return redirect()->route('guru-pertemuan', $datas[0]->id);
     }
 
-    public function pertemuan($id)
+    public function pertemuan($id, Request $request)
     {
     	$datas = Jadwal::where('id', $id)->get();
     	$tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
     	$kelass = Kelas::all();
-    	$mapels = MataPelajaran::where('mapel', Auth::user()->kelas)->get(); //mencari mapel sesuai yang diajarkan oleh guru yang bersangkutan
-        $pertemuans = Pertemuan::where('mapel', $mapels[0]->mapel)->get();
-        $kelas_id = Kelas::where('id', $id)->get();
-        // return $kelas_id;
+    	$mapels = MataPelajaran::where('mapel', Auth::user()->kelas)->first(); //mencari mapel sesuai yang diajarkan oleh guru yang bersangkutan
+        $pertemuans = Pertemuan::where('kelas_id', $request->kelas_id)->get();
+        $kelas_id = Kelas::where('id', $request->kelas_id)->first();
 
 		return view('guru.pertemuan', compact('datas', 'tahunAjarans', 'kelass', 'mapels', 'pertemuans', 'kelas_id'));
     }
@@ -86,22 +87,24 @@ class GuruController extends Controller
     {
         $date = Carbon::now();
         $date->modify('+7 minutes');
+
+        $jadwal = Jadwal::where('guru_id', Auth::user()->id)->first();
+        $pertemuans = Pertemuan::where('id', $request->id)->first();
+        $kelas = Kelas::where('id', $pertemuans->kelas_id)->first();
+        $variable = User::where('kelas', $kelas->kelas)->Where('role', 'siswa')->get();
+
         Pertemuan::where('id', $request->id)->update([
             'status' => 1,
             'code' => substr(md5(mt_rand()), 0, 8),
             'data_expired' => $date,
         ]);
-
-        $jadwal = Jadwal::where('guru_id', Auth::user()->id)->get();
-        $kelas = Kelas::where('id', $jadwal[0]->kelas_id)->first();
-        $variable = User::where('kelas', $kelas->kelas)->get();
-
+        
         foreach ($variable as $key => $value) {
             $kelas = Kelas::where('kelas', $value->kelas)->first();
             Kehadiran::create([
                 'name_id' => $value->id,
                 'kelas_id' => $kelas->id,
-                'mapel_id' => $jadwal[0]->mapel_id,
+                'mapel_id' => $jadwal->mapel_id,
                 'pertemuan_id' => $request->id,
                 'status' => 0,
             ]);
@@ -125,10 +128,33 @@ class GuruController extends Controller
     public function perkelas($id)
     {
         $tahunAjarans = TahunAjaran::where('status', 1)->get();
-        $kelass = Kelas::where('id', $id)->get();
-        $datas = User::where('role', 'siswa')->Where('kelas', $kelass[0]->kelas)->get();
+        $kelass = Kelas::where('id', $id)->first();
+        $datas = User::where('role', 'siswa')->Where('kelas', $kelass->kelas)->get();
+        $kehadirans = Kehadiran::all();
+        // $kehadirans = count($kehadiran);
+        // $value = 0;
+        // return $datas;
 
-        return view('guru.perkelas', compact('kelass', 'datas', 'tahunAjarans'));
+        $user = User::where('name', Auth::user()->name)->get();
+        $senin = Jadwal::where('guru_id', $user[0]->id)->where('hari', 'senin')->get();
+        $selasa = Jadwal::where('guru_id', $user[0]->id)->where('hari', 'selasa')->get();
+        $rabu = Jadwal::where('guru_id', $user[0]->id)->where('hari', 'rabu')->get();
+        $kamis = Jadwal::where('guru_id', $user[0]->id)->where('hari', 'kamis')->get();
+        $jumat = Jadwal::where('guru_id', $user[0]->id)->where('hari', 'jumat')->get();
+
+        // $masuk = Kehadiran::where('name_id', )
+
+        return view('guru.perkelas', compact('kelass', 'datas', 'tahunAjarans', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'kehadirans',));
+    }
+
+    public function riwayat($id)
+    {
+        $tahunAjarans = TahunAjaran::where('status', 1)->get();
+        $user = User::where('id', $id)->first();
+        $kelass = Kelas::where('kelas', $user->kelas)->first();
+        $datas = Kehadiran::where('name_id', $id)->get();
+
+        return view('guru.riwayat', compact('kelass', 'datas', 'tahunAjarans', 'user'));
     }
 
     public function jadwal()
@@ -139,7 +165,19 @@ class GuruController extends Controller
         $user = User::where('name', Auth::user()->name)->get();
         $datas = Jadwal::where('guru_id', $user[0]->id)->get();
 
-        return view('guru.jadwal', compact('datas', 'tahunAjarans', 'kelass', 'mapels'));
+        $senin = Jadwal::where('guru_id', $user[0]->id)->where('hari', 'senin')->get();
+        $selasa = Jadwal::where('guru_id', $user[0]->id)->where('hari', 'selasa')->get();
+        $rabu = Jadwal::where('guru_id', $user[0]->id)->where('hari', 'rabu')->get();
+        $kamis = Jadwal::where('guru_id', $user[0]->id)->where('hari', 'kamis')->get();
+        $jumat = Jadwal::where('guru_id', $user[0]->id)->where('hari', 'jumat')->get();
+
+        $senins = count($senin);
+        $selasas = count($selasa);
+        $rabus = count($rabu);
+        $kamiss = count($kamis);
+        $jumats = count($jumat);
+
+        return view('guru.jadwal', compact('datas', 'tahunAjarans', 'kelass', 'mapels', 'senins', 'selasas', 'rabus', 'kamiss', 'jumats'));
     }
 
     public function kehadiran($id)
@@ -154,13 +192,21 @@ class GuruController extends Controller
         $hadir = count($hadirs);
         $izin = count($izins);
 
-        return view('guru.kehadiran', compact('kehadirans', 'tahunAjarans', 'hadir', 'izin', 'alfa', 'hadirs', 'izins', 'alfas'));
+        return view('guru.kehadiran', compact('kehadirans', 'tahunAjarans', 'hadir', 'izin', 'alfa', 'hadirs', 'izins', 'alfas',));
     }
 
-    public function izin($id)
+    public function izinTerima($id)
     {
         Kehadiran::where('id', $id)->update([
             'status' => 2,
+        ]);
+        return redirect()->back();
+    }
+
+    public function izinTolak($id)
+    {
+        Kehadiran::where('id', $id)->update([
+            'status' => 0,
         ]);
         return redirect()->back();
     }
@@ -170,5 +216,11 @@ class GuruController extends Controller
         $tahunAjarans = TahunAjaran::where('status', 1)->get();
 
         return view('guru.profile', compact('tahunAjarans'));
+    }
+
+    public function kehadiranExport(Request $request)
+    {  
+        // return $request->id;
+        return Excel::download(new KehadiranExport($request->id), 'Kehadiran.xlsx');
     }
 }

@@ -37,21 +37,19 @@ Pertemuan
 <div class="container">
     <div class="row justify-content-center">
         <div class="card">
-            <div class="card-header">{{ __('Jadwal') }}</div>
+            <div class="card-header">Matematika Wajib</div>
 
             <div class="card-body">
                 <div>
                     <table class="table">
                         <thead>
                             <th class="center">Pertemuan Ke-</th>
-                            <th class="center">Mapel</th>
                             <th class="center">Pembahasan</th>
                             <th class="center"></th>
                         </thead>
                         @foreach($pertemuans as $pertemuan)
                         <tbody>
                             <td class="center">{{ $pertemuan->pertemuan_ke }}</td>
-                            <td class="center">{{ $pertemuan->mapel }}</td>
                             <td class="center">{{ $pertemuan->pembahasan }}</td>
                             <td class="center inline">
                                 @if ($pertemuan->status == 0)

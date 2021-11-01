@@ -71,6 +71,33 @@ class JadwalController extends Controller
     	return redirect()->back();    
     }
 
+    public function tapel($id)
+    {
+        $tapel = TahunAjaran::where('id', $id)->first();
+        $kelass = Kelas::where('tapel', $tapel->tapel)->get();
+
+        // return$kelass;
+        return view('jadwal.tapel', compact('kelass', 'tapel'));    
+    }
+
+    public function kelas(Request $request, $id)
+    {
+        $tapel = TahunAjaran::where('id', $request->tapel)->first();
+        // $kelas = Kelas::where('id', $id)->first();
+        // $datas = Jadwal::where('kelas_id', $kelas->id)->where('tapel_id', $tapel->id)->get();
+        // $mapels = MataPelajaran::all();
+
+        $tahunAjarans = TahunAjaran::where('status', 1)->first();
+        $kelass = Kelas::where('id', $id)->first();
+        $mapels = MataPelajaran::where('tapel', $tahunAjarans->tapel)->get();
+        $gurus = User::where('role', 'guru')->get();
+        $datas = Jadwal::where('kelas_id', $kelass->id)->where('tapel_id', $tahunAjarans->id)->get();
+
+        // return$datas;
+
+        return view('jadwal.kelas', compact('datas', 'mapels', 'kelass', 'tahunAjarans', 'gurus'));    
+    }    
+
     public function import(Request $request)
     {
         Excel::import(new JadwalImport, $request->file('file'));

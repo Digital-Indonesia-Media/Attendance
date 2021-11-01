@@ -59,7 +59,23 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // return $request->kelas;
+        // return $request;
+        // $nama_siswa = strtolower($request->name);
+        // $coba = strtok($nama_siswa, " ");
+        // $nama = 'ortu_' . $request->email;
+        // return$nama;
+
+        if($request->role == 'siswa') {
+            User::create([
+                'name' => 'Ortu ' . $request->name,
+                'kelas' => $request->kelas,
+                'tapel' => $request->tapel,
+                'role' => 'ortu',
+                'email' => 'ortu.' . $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+        };
+
     	User::create([
     		'name' => $request->name,
             'kelas' => $request->kelas,
@@ -83,7 +99,7 @@ class UserController extends Controller
     		'email' => $request->email,
     		'role' => $request->role,
     	]);
-    	return redirect()->route('user-index');
+    	return redirect()->back();
     }
 
     public function delete(Request $request)

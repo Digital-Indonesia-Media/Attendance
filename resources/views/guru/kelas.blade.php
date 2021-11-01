@@ -54,7 +54,9 @@ Data Kelas
                         <tbody>
                             <td style="width: 50%;">{{ $kelas->kelas }}</td>
                             <td style="width: 50%;">
-                                <a href="{{ route('guru-perkelas', $kelas->id) }}">Lihat Selengkapnya...</a>
+                                <a style="color: #fff;" href="{{ route('guru-perkelas', $kelas->id) }}">
+                                    <button type="button" class="btn btn-primary">Lihat Selengkapnya</button>
+                                </a>
                             </td>
                         </tbody>
                         @endforeach

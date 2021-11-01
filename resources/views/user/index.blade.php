@@ -27,17 +27,17 @@ Pengguna
     </a>
   </li>
 
-  <li class="active">
-    <a href="{{ route('admin-user') }}">
-      <i class="fas fa-users"></i>
-      <p>Pengguna</p>
-    </a>
-  </li>
-
   <li>
     <a href="{{ route('kelas-index') }}">
       <i class="fas fa-warehouse"></i>
       <p>Kelas</p>
+    </a>
+  </li>
+
+  <li class="active">
+    <a href="{{ route('admin-user') }}">
+      <i class="fas fa-users"></i>
+      <p>Pengguna</p>
     </a>
   </li>
 
@@ -91,7 +91,7 @@ Pengguna
                             @csrf
                             <div>
                                 <div>
-                                    <label>Nama Lengkap</label>
+                                    <label>Nama Siswa</label>
                                     <input class="form-control" type="text" name="name" required="" placeholder="Masukkan Nama">
                                 </div>
                                 <br>
@@ -108,7 +108,7 @@ Pengguna
 
                                 <div>
                                     <label for="role">Tahun Pelajaran</label>
-                                    <select class="form-control" id="kelas" name="kelas" required="">
+                                    <select class="form-control" id="tapel" name="tapel" required="">
                                         @foreach($tapels as $tapel)
                                         <option value="{{ $tapel->tapel }}">{{ $tapel->tapel }}</option>
                                         @endforeach
@@ -145,6 +145,7 @@ Pengguna
                                     <select class="form-control" id="role" name="role" required="">
                                         <option value="siswa">Siswa</option>
                                         <option value="guru">Guru</option>
+                                        <option value="ortu">Ortu</option>
                                     </select>
                                     <!-- <input class="form-control" type="text" name="role"> -->
                                 </div>

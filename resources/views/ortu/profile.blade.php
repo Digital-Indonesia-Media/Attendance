@@ -1,64 +1,29 @@
 @extends('layouts.app')
 
 @section('title')
- Profile
+Profil Pengguna
 @endsection
 
 @section('sidebar-nav')
 <ul class="nav">
   <li>
-    <a href=" {{ route('siswa') }}">
+    <a href=" {{ route('ortu') }}">
       <i class="now-ui-icons design_app"></i>
       <p>Dashboard</p>
     </a>
   </li>
 
-  <li>
-    <a href="{{ route('tapel-index') }}">
-      <i class="fab fa-trello"></i>
-      <p>Tahun Pelajaran</p>
-    </a>
-  </li>
-
-  <li>
-    <a href="{{ route('mapel-index') }}">
-      <i class="fas fa-book"></i>
-      <p>Mata Pelajaran</p>
-    </a>
-  </li>
-
-  <li>
-    <a href="{{ route('kelas-index') }}">
-      <i class="fas fa-warehouse"></i>
-      <p>Kelas</p>
-    </a>
-  </li>
-
-  <li>
-    <a href="{{ route('admin-user') }}">
-      <i class="fas fa-users"></i>
-      <p>Pengguna</p>
-    </a>
-  </li>
-
-  <li>
-    <a href="{{ route('jadwal-index') }}">
+  <!-- <li>
+    <a href="{{ route('ortu-riwayat') }}">
       <i class="now-ui-icons education_agenda-bookmark"></i>
-      <p>Jadwal</p>
+      <p>Riwayat Hadir</p>
     </a>
-  </li>
-
-  <li>
-    <a href="{{ route('pertemuan-index') }}">
-      <i class="fab fa-yelp"></i>
-      <p>Pertemuan</p>
-    </a>
-  </li>
+  </li> -->
 
   <li class="active">
-    <a href="{{ route('admin-profile') }}">
+    <a href="{{ route('ortu-profile') }}">
       <i class="now-ui-icons users_single-02"></i>
-      <p>Profil Admin</p>
+      <p>Profil Pengguna</p>
     </a>
   </li>
 </ul>
@@ -69,29 +34,30 @@
 @endsection
 
 @section('content')
-		<div class="row">
+        <div class="row">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
                 <h5 class="title">Profil Pengguna</h5>
               </div>
               <div class="card-body">
-                <form action="{{ route('admin-profile-update') }}" method="POST">
+                <form action="#" method="POST">
                   @csrf
+                  @method('PUT')
                   <div>
                     <input type="hidden" name="id" hidden="" value="{{ Auth::user()->id }}">
                   </div>
                   <div class="row">
                     <div class="col-md-5 pr-1">
                       <div class="form-group">
-                        <label>Sekolah (dibatasi)</label>
+                        <label>Sekolah (disabled)</label>
                         <input type="text" class="form-control" disabled="" placeholder="Company" value="SMA Muhammadiyah 1 Taman">
                       </div>
                     </div>
                     <div class="col-md-3 px-1">
                       <div class="form-group">
-                        <label>Nama Panggilan (dibatasi)</label>
-                        <input name="name" type="text" class="form-control" disabled="" placeholder="Username" value="{{ Auth::user()->name }}">
+                        <label>Nama</label>
+                        <input name="username" type="text" class="form-control" placeholder="Username" value="{{ Auth::user()->name }}">
                       </div>
                     </div>
                     <div class="col-md-4 pl-1">
@@ -104,7 +70,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Peran (dibatasi)</label>
+                        <label>Peran (disabled)</label>
                         <input name="role" type="text" class="form-control" disabled="" placeholder="Role" value="{{ Auth::user()->role }}">
                       </div>
                     </div>
@@ -112,19 +78,19 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Catatan Diriku</label>
-                        <textarea rows="4" cols="80" class="form-control" placeholder="Disini bisa diisi dengan deskripsi dirimu" value="{{ Auth::user()->desc }}"></textarea>
+                        <label>Tentang saya</label>
+                        <textarea rows="4" cols="80" class="form-control" placeholder="Deskripsi tentang dirimu" value="Mike"></textarea>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col-md-9"></div>
                     <div class="col-md-3 pr-1">
                       <div class="form-group">
                         <button type="submit" class="form-control btn btn-primary">Perbarui</button>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </form>
               </div>
             </div>
@@ -133,11 +99,26 @@
           <!-- <div class="col-md-4">
             <div class="card card-user">
               <div class="card-body">
-
+                
               </div>
               <hr>
+              <div class="button-container">
+                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                  <i class="fab fa-twitter"></i>
+                </button>
+                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                  <i class="fab fa-google-plus-g"></i>
+                </button>
+              </div>
             </div>
           </div> -->
-
+          
         </div>
+@endsection
+
+@section('js')
+    
 @endsection

@@ -44,7 +44,7 @@ Dashboard
                     </div>
                     <div class="col-md-8">
                         <div class="card-header">
-                            <h5 class="card-category" style="color: #fff;">Hadir</h5>
+                            <h2 class="card-category" style="color: #fff; font-size: 2em; margin-left: 25px;">Hadir</h2>
                         </div>
 
                         <div class="card-body" style="margin-left: 50%;">
@@ -63,7 +63,7 @@ Dashboard
                     </div>
                     <div class="col-md-8">
                         <div class="card-header">
-                            <h5 class="card-category" style="color: #fff;">Izin</h5>
+                            <h2 class="card-category" style="color: #fff; font-size: 2em; margin-left: 40px;">Izin</h2>
                         </div>
 
                         <div class="card-body" style="margin-left: 50%;">
@@ -82,7 +82,7 @@ Dashboard
                     </div>
                     <div class="col-md-8">
                         <div class="card-header">
-                            <h5 class="card-category" style="color: #fff;">Alfa</h5>
+                            <h2 class="card-category" style="color: #fff; font-size: 2em; margin-left: 35px;">Alfa</h2>
                         </div>
 
                         <div class="card-body" style="margin-left: 50%;">
@@ -96,7 +96,7 @@ Dashboard
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-category" style="color: #f96332;">Komentar</h5>
+                    <h2 class="card-category" style="color: #f96332;">Komentar</h2>
                 </div>
 
                 <div class="card-body">

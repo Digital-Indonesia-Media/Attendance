@@ -20,8 +20,14 @@ class Kehadiran extends Model
         return $this->belongsTo('App\Models\Kelas');
     }
 
+    public function pertemuan()
+    {
+        return $this->belongsTo('App\Models\Pertemuan');
+    }
+    
     public function user()
     {
         return $this->belongsTo('App\User', "name_id");
     }
+
 }

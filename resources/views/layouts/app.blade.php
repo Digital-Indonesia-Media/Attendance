@@ -32,6 +32,26 @@
       .margin {
         margin-top: 5px;
       }
+
+      .dropdown-menu {
+        color: #fff!important;
+      }
+
+      .dropdown-menu::before {
+          display: inline-block;
+          position: absolute;
+          width: 0;
+          height: 0;
+          vertical-align: middle;
+          content: "";
+          top: -5px;
+          left: 10px;
+          right: auto;
+          color: #FFFFFF;
+          border-bottom: .4em solid;
+          border-right: .4em solid transparent;
+          border-left: .4em solid transparent;
+      }
     </style>
 </head>
 
@@ -91,7 +111,7 @@
                       @if (Route::has('register'))
                       @endif
                       @else
-                    <a class="dropdown-item" href="{{ route('guru-profile') }}">Profile</a>
+                    <!-- <a class="dropdown-item" href="{{ route('guru-profile') }}">Profile</a> -->
                     <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
@@ -130,7 +150,7 @@
             <div class="copyright" id="copyright">
               &copy; <script>
                 document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-              </script>, Designed by <i class="fas fa-heart"></i>. Coded by <a href="https://www.instagram.com/dawwas_inha/" target="_blank">ini was</a>.
+              </script>, Designed by <i class="fas fa-heart"></i>. Coded by <a href="https://bit.ly/iniwas/" target="_blank">ini was</a>.
             </div>
           </div>
         </footer>

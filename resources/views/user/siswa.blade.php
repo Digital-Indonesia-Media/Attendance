@@ -27,13 +27,6 @@ Pengguna
     </a>
   </li>
 
-  <li class="active">
-    <a href="{{ route('admin-user') }}">
-      <i class="fas fa-users"></i>
-      <p>Pengguna</p>
-    </a>
-  </li>
-
   <li>
     <a href="{{ route('kelas-index') }}">
       <i class="fas fa-warehouse"></i>
@@ -41,6 +34,13 @@ Pengguna
     </a>
   </li>
 
+  <li class="active">
+    <a href="{{ route('admin-user') }}">
+      <i class="fas fa-users"></i>
+      <p>Pengguna</p>
+    </a>
+  </li>
+  
   <li>
     <a href="{{ route('jadwal-index') }}">
       <i class="now-ui-icons education_agenda-bookmark"></i>
@@ -94,11 +94,11 @@ Pengguna
                                 <td style="width: 20%;">{{ $data->email }}</td>
                                 <td class="center" style="width: 25%;">
                                     <a href="{{ route('user-edit', $data->id) }}">
-                                        <button class="btn btn-warning">
+                                        <button class="btn btn-warning" style="width:100px; margin-top: 5px;">
                                             Edit
                                         </button>
                                     </a>
-                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-danger">
+                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-danger" style="width:100px; margin-top: 5px;">
                                         Delete
                                     </button>
                                 </td>

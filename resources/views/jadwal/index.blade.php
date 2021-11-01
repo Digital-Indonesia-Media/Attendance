@@ -28,16 +28,16 @@ Jadwal
   </li>
 
   <li>
-    <a href="{{ route('admin-user') }}">
-      <i class="fas fa-users"></i>
-      <p>Pengguna</p>
+    <a href="{{ route('kelas-index') }}">
+      <i class="fas fa-warehouse"></i>
+      <p>Kelas</p>
     </a>
   </li>
 
   <li>
-    <a href="{{ route('kelas-index') }}">
-      <i class="fas fa-warehouse"></i>
-      <p>Kelas</p>
+    <a href="{{ route('admin-user') }}">
+      <i class="fas fa-users"></i>
+      <p>Pengguna</p>
     </a>
   </li>
 
@@ -75,7 +75,7 @@ Jadwal
             <div class="card">
                 <div class="card-header">
                     <div class="float-left">
-                        <p>Tambahkan Jadwal</p>
+                        <p>Pilih Tapel</p>
                     </div>
                     <!-- Button trigger modal -->
                     <div class="float-right">
@@ -97,7 +97,6 @@ Jadwal
                                     <option value="{{ $tahunAjaran->id }}">{{ $tahunAjaran->tapel }}</option>
                                     @endforeach
                                 </select>
-                                <!-- <input class="form-control" type="text" name="tapel"> -->
                             </div><br>
                             <div>
                                 <label>Kelas</label>
@@ -149,6 +148,22 @@ Jadwal
                     <div>
                         <table class="table" style="margin-top: 25px;">
                             <thead>
+                                <th>Tapel</th>
+                                <th class="center">Keterangan</th>
+                            </thead>
+                            @foreach ($tahunAjarans as $tahunAjaran)
+                            <tbody>
+                                <td>{{ $tahunAjaran->tapel }}</td>
+                                <td class="center">
+                                    <a href="{{ route('jadwal-tapel', $tahunAjaran->id) }}"><button class="btn btn-primary">Pergi</button></a>
+                                </td>
+                            </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                    <!-- <div>
+                        <table class="table" style="margin-top: 25px;">
+                            <thead>
                                 <td class="center">Tahun Pelajaran</td>
                                 <td class="center">Kelas</td>
                                 <td class="center">Mata Pelajaran</td>
@@ -166,18 +181,18 @@ Jadwal
                                 <td class="center">{{ $data->waktu }}</td>
                                 <td class="center">
                                     <a href="{{ route('jadwal-edit', $data->id) }}">
-                                        <button class="btn btn-sm btn-warning">
+                                        <button class="btn btn-sm btn-warning" style="width: 100px; margin: 5px;">
                                             Edit 
                                         </button>
                                     </a>
-                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-sm btn-danger">
+                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-sm btn-danger" style="width: 100px; margin: 5px;">
                                         Delete
                                     </button>
                                 </td>
                             </tbody>
                             @endforeach
                         </table>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Pengguna
+Jadwal
 @endsection
 
 @section('sidebar-nav')
@@ -34,7 +34,7 @@ Pengguna
     </a>
   </li>
 
-  <li class="active">
+  <li>
     <a href="{{ route('admin-user') }}">
       <i class="fas fa-users"></i>
       <p>Pengguna</p>
@@ -48,7 +48,7 @@ Pengguna
     </a>
   </li>
 
-  <li>
+  <li class="active">
     <a href="{{ route('pertemuan-index') }}">
       <i class="fab fa-yelp"></i>
       <p>Pertemuan</p>
@@ -58,7 +58,7 @@ Pengguna
   <li>
     <a href="{{ route('admin-profile') }}">
       <i class="now-ui-icons users_single-02"></i>
-      <p>User Profile</p>
+      <p>Profil Pengguna</p>
     </a>
   </li>
 </ul>
@@ -73,59 +73,41 @@ Pengguna
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
+                <div class="card-header">
+                    <div class="float-left">
+                        <p>Pilih Kelas</p>
+                    </div>    
+                </div>
+
                 <div class="card-body">
+                    <input type="hidden" name="tapel" value="{{ $tapel->id }}">
                     <div>
-                        <table class="table">
-                        <thead>
-                            <td>Data Pengguna Setiap Kelas</td>
-                            <td></td>
-                        </thead>
-                        @foreach ($kelass as $kelas)
-                        <tbody>
-                            <td style="width: 75%;">{{ $kelas->kelas }}</td>
-                            <td style="width: 25%;">
-                                <a href="{{ route('user-siswa', $kelas->id) }}">
-                                    <button class="btn btn-success" style="width: 150px;">Pergi</button>
-                                </a>
-                            </td>
-                        </tbody>
-                        @endforeach
-                    </table>
+                        <table class="table" style="margin-top: 25px;">
+                            <thead>
+                                <td class="center">Kelas</td>
+                                <td class="center">Keterangan</td>
+                            </thead>
+
+                            @foreach ($kelass as $kelas)
+                            <tbody>
+                                <td class="center">{{ $kelas->kelas }}</td>
+                                <td class="center">
+                                    <form action="{{ route('pertemuan-kelas', $kelas->id) }}">
+                                        <input type="hidden" name="tapel" value="{{ $tapel->id }}">
+                                        <button type="submit" class="btn btn-warning" style="width: 100px; margin: 5px;">
+                                            Pergi 
+                                        </button>
+                                    </form>
+                                </td>
+                            </tbody>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Modal untuk tambah data -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('user-import') }}" method="POST" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <div>
-                        <input type="file" name="file" required="">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Selesai</button>
-                <button type="submit" class="btn btn-primary">Import</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Akhir modal -->
-
 @endsection
 
 @section('js')
@@ -145,7 +127,7 @@ Pengguna
               if (result.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: "{{route('user-delete')}}",
+                    url: "{{route('jadwal-delete')}}",
                     data: {
                         _token: "{{ csrf_token() }}",
                         id:id

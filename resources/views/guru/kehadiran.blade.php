@@ -48,17 +48,26 @@ Kehadiran Siswa
                 <div class="card-header">
                     <p>Kehadiran Siswa</p>
                     <div class="float-right" style="margin: 5px;">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalHadir">
-                            <p style="margin: auto;">Hadir : {{ $hadir }}</p>
-                        </button>
+                        <div class="top">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalHadir">
+                                <p style="margin: auto;">Hadir : {{ $hadir }}</p>
+                            </button>
 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalIzin">
-                            <p style="margin: auto;">Izin : {{ $izin }}</p>
-                        </button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalIzin">
+                                <p style="margin: auto;">Izin : {{ $izin }}</p>
+                            </button>
 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAlfa">
-                            <p style="margin: auto;">Alfa : {{ $alfa }}</p>
-                        </button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAlfa">
+                                <p style="margin: auto;">Alfa : {{ $alfa }}</p>
+                            </button>
+                        </div>
+                        <div class="bottom">
+                            <a href="{{ route('download-kehadiran', $kehadirans[0]->pertemuan_id) }}">
+                                <button style="width:100%;" type="button" class="btn btn-primary">
+                                    <p style="margin: auto;">Ambil Data</p>
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -87,9 +96,9 @@ Kehadiran Siswa
                                 </td>
                             @elseif ($kehadiran->status == 3)
                                 <td class="center">
-                                    <button class="btn btn-primary" style="margin-top: 5px;" data-toggle="modal" data-target="#ModalIzin">Mengajukan Izin</button>
+                                    <button class="btn btn-warning" style="margin-top: 5px;" data-toggle="modal" data-target="#ModalIzin">Mengajukan Izin</button>
                                 </td>
-                                <!-- Modal untuk hadir -->
+                                <!-- Modal untuk izin -->
                                     <div class="modal fade" id="ModalIzin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -100,15 +109,21 @@ Kehadiran Siswa
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route('guru-pertemuan-izin', $kehadiran->id) }}" method="POST">
-                                                        {{ csrf_field() }}
+                                                        
                                                         <div class="form-group">
                                                             <label style="text-align: left!important;">Alasan</label>
                                                             <input class="form-control" type="text" name="kode" required="" value="{{ $kehadiran->izin }}" disabled="">
                                                         </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success">Izinkan</button>
+                                                    <form action="{{ route('guru-pertemuan-izin-terima', $kehadiran->id) }}" method="POST">
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="btn btn-success">Izinkan</button>
+                                                    </form>
+
+                                                    <form action="{{ route('guru-pertemuan-izin-tolak', $kehadiran->id) }}" method="POST">
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="btn btn-danger">Tolak Izin</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -153,7 +168,7 @@ Kehadiran Siswa
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Selesai</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Selesai</button>
             </div>
         </div>
     </div>
@@ -182,7 +197,7 @@ Kehadiran Siswa
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Selesai</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Selesai</button>
             </div>
         </div>
     </div>
@@ -211,7 +226,7 @@ Kehadiran Siswa
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Selesai</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Selesai</button>
             </div>
         </div>
     </div>

@@ -45,7 +45,7 @@ Pengguna
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h5 class="title">Edit Profil Pengguna</h5>
+                <h5 class="title">Profil Pengguna</h5>
               </div>
               <div class="card-body">
                 <form action="#" method="POST">

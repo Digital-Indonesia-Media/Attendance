@@ -359,7 +359,7 @@
                 <div class="card">
                     <div class="card-body row">
                         <div class="icon">
-                            <i class="fa fa-user fa-2x">  <p style="margin:auto; margin-left: 10px;">Login</p></i>
+                            <i class="fa fa-user fa-2x">  <p style="margin:auto; margin-left: 10px;">{{ __('LOGIN') }}</p></i>
                         </div>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf

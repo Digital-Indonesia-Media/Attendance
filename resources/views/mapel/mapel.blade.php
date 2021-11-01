@@ -28,16 +28,16 @@ Mata Pelajaran
   </li>
 
   <li>
-    <a href="{{ route('admin-user') }}">
-      <i class="fas fa-users"></i>
-      <p>Pengguna</p>
+    <a href="{{ route('kelas-index') }}">
+      <i class="fas fa-warehouse"></i>
+      <p>Kelas</p>
     </a>
   </li>
 
   <li>
-    <a href="{{ route('kelas-index') }}">
-      <i class="fas fa-warehouse"></i>
-      <p>Kelas</p>
+    <a href="{{ route('admin-user') }}">
+      <i class="fas fa-users"></i>
+      <p>Pengguna</p>
     </a>
   </li>
 
@@ -123,12 +123,11 @@ Mata Pelajaran
                             <tbody>
                                 <td>{{ $tahunAjaran->tapel }}</td>
                                 <td class="center">
-                                    <a href="{{ route('mapel-tapel', $tahunAjaran->id) }}"><button class="btn btn-success">Pergi</button></a>
+                                    <a href="{{ route('mapel-tapel', $tahunAjaran->id) }}"><button class="btn btn-primary">Pergi</button></a>
                                 </td>
                             </tbody>
                             @endforeach
                         </table>
-                        
                     </div>
                 </div>
             </div>

@@ -27,17 +27,17 @@ Kelas
     </a>
   </li>
 
-  <li>
-    <a href="{{ route('admin-user') }}">
-      <i class="fas fa-users"></i>
-      <p>Pengguna</p>
-    </a>
-  </li>
-
   <li class="active">
     <a href="{{ route('kelas-index') }}">
       <i class="fas fa-warehouse"></i>
       <p>Kelas</p>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('admin-user') }}">
+      <i class="fas fa-users"></i>
+      <p>Pengguna</p>
     </a>
   </li>
 
@@ -102,11 +102,11 @@ Kelas
                                 <td>{{ $data->tapel }}</td>
                                 <td class="center">
                                     <a href="{{ route('kelas-edit', $data->id) }}">
-                                        <button class="btn btn-warning">
+                                        <button class="btn btn-warning" style="width: 100px; margin-top: 5px;">
                                             Edit
                                         </button>
                                     </a>
-                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-danger">
+                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-danger" style="width: 100px; margin-top: 5px;">
                                         Delete
                                     </button>
                                 </td>

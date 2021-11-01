@@ -40,9 +40,15 @@ class LoginController extends Controller
             return redirect('guru');
         }
 
+        if ($user->role == 'ortu') {
+            return redirect('ortu');
+        }
+
         if ($user->role == 'siswa') {
             return redirect('siswa');
         }
+
+        return redirect('login');
     }
 
     /**

@@ -37,7 +37,7 @@ Jadwal
 <div class="container">
     <div class="row justify-content-center">
         <div class="card">
-            <div class="card-header">{{ __('Jadwal') }}</div>
+            <div class="card-header">Jadwal Kelas <label style="color:#f96332;">{{ $datas[0]->kelas->kelas }}</label></div>
 
             <div class="card-body">
                 @if (session('status'))
@@ -51,26 +51,35 @@ Jadwal
 
                     <div class="card-body">
                         <table class="table">
+                        @if($senins == 0)
+                            <thead class="center" style="width:100%; text-align: center;">
+                                <td>Tidak ada jam mengajar</td>
+                            </thead>
+                        @else
                             <thead>
-                                <td>Kelas</td>
-                                <td>Mapel</td>
-                                <td>Waktu</td>
-                                <td>Aksi</td>
+                                <td style="width: 30%;">Mapel</td>
+                                <td style="width: 30%;">Jam</td>
+                                <td class="center" style="width: 40%;">Keterangan</td>
                             </thead>
                             <tbody>
                             @foreach($datas as $data)
                             @if ($data->hari == 'Senin')
                             <tr>
-                                <td>{{ $data->kelas->kelas }}</td>
                                 <td>{{ $data->mapel->mapel }}</td>
                                 <td>{{ $data->waktu }}</td>
-                                <td>
-                                    <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                <td class="center">
+                                    <form action="{{ route('siswa-pertemuan', $data->mapel) }}">
+                                        <button type="submit" class="btn btn-warning">
+                                            Lihat Selengkapnya 
+                                        </button>
+                                    </form>
+                                    <!-- <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a> -->
                                 </td>
                             </tr>
                             @endif
                             @endforeach
                             </tbody>
+                        @endif
                         </table>
                     </div>
                 </div><br>
@@ -80,26 +89,34 @@ Jadwal
 
                     <div class="card-body">
                         <table class="table">
+                        @if($selasas == 0)
+                            <thead class="center" style="width:100%; text-align: center;">
+                                <td>Jam Pelajaran Kosong</td>
+                            </thead>
+                        @else
                             <thead>
-                                <td>Kelas</td>
-                                <td>Mapel</td>
-                                <td>Waktu</td>
-                                <td>Aksi</td>
+                                <td style="width: 30%;">Mapel</td>
+                                <td style="width: 30%;">Jam</td>
+                                <td class="center" style="width: 40%;">Keterangan</td>
                             </thead>
                             <tbody>
                             @foreach($datas as $data)
                             @if ($data->hari == 'Selasa')
                             <tr>
-                                <td>{{ $data->kelas->kelas }}</td>
                                 <td>{{ $data->mapel->mapel }}</td>
                                 <td>{{ $data->waktu }}</td>
                                 <td>
-                                    <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                    <form action="{{ route('siswa-pertemuan', $data->mapel) }}">
+                                        <button type="submit" class="btn btn-warning">
+                                            Lihat Selengkapnya 
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endif
                             @endforeach
                             </tbody>
+                        @endif
                         </table>
                     </div>
                 </div><br>
@@ -109,26 +126,34 @@ Jadwal
 
                     <div class="card-body">
                         <table class="table">
+                        @if($rabus == 0)
+                            <thead class="center" style="width:100%; text-align: center;">
+                                <td>Jam Pelajaran Kosong</td>
+                            </thead>
+                        @else
                             <thead>
-                                <td>Kelas</td>
-                                <td>Mapel</td>
-                                <td>Waktu</td>
-                                <td>Aksi</td>
+                                <td style="width: 30%;">Mapel</td>
+                                <td style="width: 30%;">Jam</td>
+                                <td class="center" style="width: 40%;">Keterangan</td>
                             </thead>
                             <tbody>
                             @foreach($datas as $data)
                             @if ($data->hari == 'Rabu')
                             <tr>
-                                <td>{{ $data->kelas->kelas }}</td>
                                 <td>{{ $data->mapel->mapel }}</td>
                                 <td>{{ $data->waktu }}</td>
                                 <td>
-                                    <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                    <form action="{{ route('siswa-pertemuan', $data->mapel) }}">
+                                        <button type="submit" class="btn btn-warning">
+                                            Lihat Selengkapnya 
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endif
                             @endforeach
                             </tbody>
+                        @endif
                         </table>
                     </div>
                 </div><br>
@@ -138,26 +163,34 @@ Jadwal
 
                     <div class="card-body">
                         <table class="table">
+                        @if($kamiss == 0)
+                            <thead class="center" style="width:100%; text-align: center;">
+                                <td>Jam Pelajaran Kosong</td>
+                            </thead>
+                        @else
                             <thead>
-                                <td>Kelas</td>
-                                <td>Mapel</td>
-                                <td>Waktu</td>
-                                <td>Aksi</td>
+                                <td style="width: 30%;">Mapel</td>
+                                <td style="width: 30%;">Jam</td>
+                                <td class="center" style="width: 40%;">Keterangan</td>
                             </thead>
                             <tbody>
                             @foreach($datas as $data)
                             @if ($data->hari == 'Kamis')
                             <tr>
-                                <td>{{ $data->kelas->kelas }}</td>
                                 <td>{{ $data->mapel->mapel }}</td>
                                 <td>{{ $data->waktu }}</td>
                                 <td>
-                                    <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                    <form action="{{ route('siswa-pertemuan', $data->mapel) }}">
+                                        <button type="submit" class="btn btn-warning">
+                                            Lihat Selengkapnya 
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endif
                             @endforeach
                             </tbody>
+                        @endif
                         </table>
                     </div>
                 </div><br>
@@ -167,26 +200,34 @@ Jadwal
 
                     <div class="card-body">
                         <table class="table">
+                        @if($jumats == 0)
+                            <thead class="center" style="width:100%; text-align: center;">
+                                <td>Jam Pelajaran Kosong</td>
+                            </thead>
+                        @else
                             <thead>
-                                <td>Kelas</td>
-                                <td>Mapel</td>
-                                <td>Waktu</td>
-                                <td>Aksi</td>
+                                <td style="width: 30%;">Mapel</td>
+                                <td style="width: 30%;">Jam</td>
+                                <td class="center" style="width: 40%;">Keterangan</td>
                             </thead>
                             <tbody>
                             @foreach($datas as $data)
                             @if ($data->hari == 'Jumat')
                             <tr>
-                                <td>{{ $data->kelas->kelas }}</td>
                                 <td>{{ $data->mapel->mapel }}</td>
                                 <td>{{ $data->waktu }}</td>
                                 <td>
-                                    <a href="{{ route('siswa-pertemuan', $data->mapel) }}">Selengkapnya</a>
+                                    <form action="{{ route('siswa-pertemuan', $data->mapel) }}">
+                                        <button type="submit" class="btn btn-warning">
+                                            Lihat Selengkapnya 
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endif
                             @endforeach
                             </tbody>
+                        @endif
                         </table>
                     </div>
                 </div><br>

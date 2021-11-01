@@ -22,15 +22,15 @@ class SiswaController extends Controller
 
     public function index()
     {
-        $user = User::where('name', Auth::user()->name)->get();
-        $kelas = Kelas::where('kelas', $user[0]->kelas)->get();
-        $datas = Jadwal::where('kelas_id', $kelas[0]->id)->get();
+        $user = User::where('name', Auth::user()->name)->first();
+        $kelas = Kelas::where('kelas', $user->kelas)->first();
+        $datas = Jadwal::where('kelas_id', $kelas->id)->get();
         $tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
         $kelass = Kelas::all();
         $mapels = MataPelajaran::all();
-        $alfas = Kehadiran::where('name_id', $user[0]->id)->where('status', 0)->get();
-        $hadirs = Kehadiran::where('name_id', $user[0]->id)->where('status', 1)->get();
-        $izins = Kehadiran::where('name_id', $user[0]->id)->where('status', 2)->get();
+        $alfas = Kehadiran::where('name_id', $user->id)->where('status', 0)->get();
+        $hadirs = Kehadiran::where('name_id', $user->id)->where('status', 1)->get();
+        $izins = Kehadiran::where('name_id', $user->id)->where('status', 2)->get();
         $alfa = count($alfas);
         $hadir = count($hadirs);
         $izin = count($izins);
@@ -40,13 +40,27 @@ class SiswaController extends Controller
 
     public function jadwal()
     {
-    	$user = User::where('name', Auth::user()->name)->get();
-        $kelas = Kelas::where('kelas', $user[0]->kelas)->get();
-        $datas = Jadwal::where('kelas_id', $kelas[0]->id)->get();
+    	$user = User::where('name', Auth::user()->name)->first();
+        $kelas = Kelas::where('kelas', $user->kelas)->first();
+        $datas = Jadwal::where('kelas_id', $kelas->id)->get();
         $tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
-        $kelass = Kelas::all();
+        $kelass = Kelas::where('id', $user->kelas);
         $mapels = MataPelajaran::all();
-        return view('siswa.jadwal', compact('datas', 'tahunAjarans', 'kelass', 'mapels',));
+
+        $senin = Jadwal::where('kelas_id', $kelas->id)->where('hari', 'senin')->get();
+        $selasa = Jadwal::where('kelas_id', $kelas->id)->where('hari', 'selasa')->get();
+        $rabu = Jadwal::where('kelas_id', $kelas->id)->where('hari', 'rabu')->get();
+        $kamis = Jadwal::where('kelas_id', $kelas->id)->where('hari', 'kamis')->get();
+        $jumat = Jadwal::where('kelas_id', $kelas->id)->where('hari', 'jumat')->get();
+
+
+        $senins = count($senin);
+        $selasas = count($selasa);
+        $rabus = count($rabu);
+        $kamiss = count($kamis);
+        $jumats = count($jumat);
+
+        return view('siswa.jadwal', compact('datas', 'tahunAjarans', 'kelass', 'mapels', 'senins', 'selasas', 'rabus', 'kamiss', 'jumats',));
     }
 
     public function pertemuan($id)

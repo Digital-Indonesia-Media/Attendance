@@ -19,6 +19,19 @@ class userImport implements ToCollection
         foreach ($collection as $key => $row) {
             if ($key >= 1) {
                 User::create([
+                    'name' => 'Ortu ' . $row[0],
+                    'role' => 'ortu',
+                    'kelas' => $row[2],
+                    'tapel' => $row[3],
+                    'email' => 'ortu.' . $row[4],
+                    'password' => Hash::make($row[5]),
+                ]);
+            }
+        }
+
+        foreach ($collection as $key => $row) {
+            if ($key >= 1) {
+                User::create([
                     'name' => $row[0],
                     'role' => $row[1],
                     'kelas' => $row[2],
