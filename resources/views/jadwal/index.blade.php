@@ -161,38 +161,6 @@ Jadwal
                             @endforeach
                         </table>
                     </div>
-                    <!-- <div>
-                        <table class="table" style="margin-top: 25px;">
-                            <thead>
-                                <td class="center">Tahun Pelajaran</td>
-                                <td class="center">Kelas</td>
-                                <td class="center">Mata Pelajaran</td>
-                                <td class="center">Hari</td>
-                                <td class="center">Waktu</td>
-                                <td class="center">Aksi</td>
-                            </thead>
-
-                            @foreach ($datas as $data)
-                            <tbody>
-                                <td class="center">{{ $data->tapel->tapel }}</td>
-                                <td class="center">{{ $data->kelas->kelas }}</td>
-                                <td class="center">{{ $data->mapel->mapel }}</td>
-                                <td class="center">{{ $data->hari }}</td>
-                                <td class="center">{{ $data->waktu }}</td>
-                                <td class="center">
-                                    <a href="{{ route('jadwal-edit', $data->id) }}">
-                                        <button class="btn btn-sm btn-warning" style="width: 100px; margin: 5px;">
-                                            Edit 
-                                        </button>
-                                    </a>
-                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-sm btn-danger" style="width: 100px; margin: 5px;">
-                                        Delete
-                                    </button>
-                                </td>
-                            </tbody>
-                            @endforeach
-                        </table>
-                    </div> -->
                 </div>
             </div>
         </div>
