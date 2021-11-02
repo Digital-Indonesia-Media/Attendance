@@ -56,11 +56,12 @@ class GuruController extends Controller
     	$datas = Jadwal::where('id', $id)->get();
     	$tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
     	$kelass = Kelas::all();
-    	$mapels = MataPelajaran::where('mapel', Auth::user()->kelas)->first(); //mencari mapel sesuai yang diajarkan oleh guru yang bersangkutan
-        $pertemuans = Pertemuan::where('kelas_id', $request->kelas_id)->get();
-        $kelas_id = Kelas::where('id', $request->kelas_id)->first();
+    	$mapels = MataPelajaran::where('id', $datas[0]->mapel_id)->first(); //mencari mapel sesuai yang diajarkan oleh guru yang bersangkutan
+        $pertemuans = Pertemuan::where('kelas_id', $request->kelas_id)->where('mapel', $mapels->mapel)->get();
+        $kelas = Kelas::where('id', $request->kelas_id)->first();
 
-		return view('guru.pertemuan', compact('datas', 'tahunAjarans', 'kelass', 'mapels', 'pertemuans', 'kelas_id'));
+        // return $kelas;
+		return view('guru.pertemuan', compact('datas', 'tahunAjarans', 'kelass', 'mapels', 'pertemuans', 'kelas'));
     }
 
     public function store(Request $request)
@@ -87,10 +88,10 @@ class GuruController extends Controller
     {
         $date = Carbon::now();
         $date->modify('+7 minutes');
-
+        
         $jadwal = Jadwal::where('guru_id', Auth::user()->id)->first();
         $pertemuans = Pertemuan::where('id', $request->id)->first();
-        $kelas = Kelas::where('id', $pertemuans->kelas_id)->first();
+        $kelas = Kelas::where('id', $request->kelas)->first();
         $variable = User::where('kelas', $kelas->kelas)->Where('role', 'siswa')->get();
 
         Pertemuan::where('id', $request->id)->update([
@@ -109,6 +110,8 @@ class GuruController extends Controller
                 'status' => 0,
             ]);
         }
+
+        return redirect()->back();    
     }
 
     public function tapel() 

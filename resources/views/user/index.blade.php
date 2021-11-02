@@ -91,7 +91,7 @@ Pengguna
                             @csrf
                             <div>
                                 <div>
-                                    <label>Nama Siswa</label>
+                                    <label>Nama</label>
                                     <input class="form-control" type="text" name="name" required="" placeholder="Masukkan Nama">
                                 </div>
                                 <br>
@@ -195,7 +195,7 @@ Pengguna
                             <td style="width: 75%;">{{ $tapel->tapel }}</td>
                             <td style="width: 25%;">
                                 <a href="{{ route('user-index', $tapel->id) }}">
-                                    <button class="btn btn-success" style="width: 150px;">Pergi</button>
+                                    <button class="btn btn-primary" style="width: 150px;">Pergi</button>
                                 </a>
                             </td>
                         </tbody>

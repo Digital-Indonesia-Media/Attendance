@@ -46,7 +46,7 @@ Jadwal
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Pertemuan {{ $mapels->mapel }} {{ $kelas_id->kelas }}
+                    <p>Pertemuan {{ $mapels->mapel }} <label style="color: #f96332;">{{ $kelas->kelas }}</label></p>
                 </div>
 
                 <div class="card-body">
@@ -59,7 +59,7 @@ Jadwal
                     <div>
                         <form class="form" action="{{ route('guru-pertemuan-store') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="kelas_id" value="{{ $kelas_id->id }}">
+                            <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
                             <div>
                                 <label>Mapel</label>
                                 <input type="text" name="mapel" class="form-control" value="{{ $mapels->mapel }}">
@@ -94,6 +94,8 @@ Jadwal
                                     @else
                                     <form action="{{route('guru-pertemuan-publish')}}" method="POST">
                                         @csrf
+                                        <input type="hidden" name="id" value="{{$pertemuan->id}}">
+                                        <input type="hidden" name="kelas" value="{{$kelas->id}}">
                                         <a href="{{ route('guru-pertemuan-edit', $pertemuan->id) }}">
                                             <button class="btn btn-warning" style="width: 100px; margin-top: 5px;">
                                                 Edit

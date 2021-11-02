@@ -69,8 +69,11 @@ class SiswaController extends Controller
         $user = User::where('name', Auth::user()->name)->get();
         $kelas = Kelas::where('kelas', $user[0]->kelas)->get();
         $data = Jadwal::where('kelas_id', $kelas[0]->id)->get();
-    	$pertemuans = Pertemuan::where('mapel', $data[0]->mapel->mapel)->get();
+        $mapel = MataPelajaran::where('id', $id)->first();
+    	$pertemuans = Pertemuan::where('mapel', $mapel->mapel)->get();
         $kehadiran = Kehadiran::all();
+
+        // return$pertemuans;
     	return view('siswa.pertemuan', compact('pertemuans', 'kehadiran', 'now'));
     }
 

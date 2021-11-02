@@ -89,7 +89,6 @@ Kelas
                     <div>
                         <table class="table" style="margin-top: 25px;">
                             <thead>
-                                <td>No</td>
                                 <td>Kelas</td>
                                 <td>Tapel</td>
                                 <td class="center">Aksi</td>
@@ -97,7 +96,6 @@ Kelas
 
                             @foreach ($datas as $data)
                             <tbody>
-                                <td>{{ $data->id }}</td>
                                 <td>{{ $data->kelas }}</td>
                                 <td>{{ $data->tapel }}</td>
                                 <td class="center">

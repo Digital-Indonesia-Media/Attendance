@@ -54,7 +54,7 @@ Route::put('/user/update', 'UserController@update')->name('user-update');
 Route::post('/user/delete', 'UserController@delete')->name('user-delete');
 
 Route::get('/kelas', 'KelasController@index')->name('kelas-index');
-Route::get('/kelas/kelas/{id}', 'KelasController@kelas')->name('kelas-kelas');
+Route::get('/kelas/{id}', 'KelasController@kelas')->name('kelas-kelas');
 Route::post('/kelas/store', 'KelasController@store')->name('kelas-store');
 Route::post('/kelas/import', 'KelasController@import')->name('kelas-import');
 Route::get('/kelas/{id}/edit', 'KelasController@edit')->name('kelas-edit');

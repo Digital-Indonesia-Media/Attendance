@@ -94,7 +94,7 @@ Jadwal
                                 <td class="center">
                                     <form action="{{ route('jadwal-kelas', $kelas->id) }}">
                                         <input type="hidden" name="tapel" value="{{ $tapel->id }}">
-                                        <button type="submit" class="btn btn-warning" style="width: 100px; margin: 5px;">
+                                        <button type="submit" class="btn btn-primary" style="width: 100px; margin: 5px;">
                                             Pergi 
                                         </button>
                                     </form>

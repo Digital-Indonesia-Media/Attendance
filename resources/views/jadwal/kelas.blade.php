@@ -156,7 +156,7 @@ Jadwal
                                 <td class="center">{{ $data->waktu }}</td>
                                 <td class="center">
                                     <a href="{{ route('jadwal-edit', $data->id) }}">
-                                        <button class="btn btn-sm btn-warning" style="width: 100px; margin: 5px;">
+                                        <button class="btn btn-warning" style="width: 100px; margin: 5px;">
                                             Edit 
                                         </button>
                                     </a>

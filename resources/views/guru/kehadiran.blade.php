@@ -88,11 +88,11 @@ Kehadiran Siswa
                             <td class="center">{{ $kehadiran->user->name }}</td>
                             @if ($kehadiran->status == 1)
                                 <td class="center">
-                                    <p style="color:#f96332; padding-top: 17px;">Hadir</p>
+                                    <p style="color:#18ce0f; padding-top: 17px;">Hadir</p>
                                 </td>
                             @elseif ($kehadiran->status == 2)
                                 <td class="center">
-                                    <p style="color:#f96332; padding-top: 17px;">Izin</p>
+                                    <p style="color:#ffb236; padding-top: 17px;">Izin</p>
                                 </td>
                             @elseif ($kehadiran->status == 3)
                                 <td class="center">

@@ -85,7 +85,7 @@ Pengguna
                             <td style="width: 75%;">{{ $kelas->kelas }}</td>
                             <td style="width: 25%;">
                                 <a href="{{ route('user-siswa', $kelas->id) }}">
-                                    <button class="btn btn-success" style="width: 150px;">Pergi</button>
+                                    <button class="btn btn-primary" style="width: 150px;">Pergi</button>
                                 </a>
                             </td>
                         </tbody>

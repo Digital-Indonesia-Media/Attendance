@@ -105,7 +105,7 @@ Jadwal
                             <tr>
                                 <td>{{ $data->mapel->mapel }}</td>
                                 <td>{{ $data->waktu }}</td>
-                                <td>
+                                <td class="center">
                                     <form action="{{ route('siswa-pertemuan', $data->mapel) }}">
                                         <button type="submit" class="btn btn-warning">
                                             Lihat Selengkapnya 
@@ -142,7 +142,7 @@ Jadwal
                             <tr>
                                 <td>{{ $data->mapel->mapel }}</td>
                                 <td>{{ $data->waktu }}</td>
-                                <td>
+                                <td class="center">
                                     <form action="{{ route('siswa-pertemuan', $data->mapel) }}">
                                         <button type="submit" class="btn btn-warning">
                                             Lihat Selengkapnya 
@@ -179,7 +179,7 @@ Jadwal
                             <tr>
                                 <td>{{ $data->mapel->mapel }}</td>
                                 <td>{{ $data->waktu }}</td>
-                                <td>
+                                <td class="center">
                                     <form action="{{ route('siswa-pertemuan', $data->mapel) }}">
                                         <button type="submit" class="btn btn-warning">
                                             Lihat Selengkapnya 
@@ -216,7 +216,7 @@ Jadwal
                             <tr>
                                 <td>{{ $data->mapel->mapel }}</td>
                                 <td>{{ $data->waktu }}</td>
-                                <td>
+                                <td class="center">
                                     <form action="{{ route('siswa-pertemuan', $data->mapel) }}">
                                         <button type="submit" class="btn btn-warning">
                                             Lihat Selengkapnya 

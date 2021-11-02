@@ -88,14 +88,14 @@ Data Kelas
                 <table class="table">
                     <thead>
                         <td>Mata Pelajaran</td>
-                        <td>Pertemuan</td>
-                        <td>Waktu</td>
+                        <td>Pembahasan</td>
+                        <td>Tanggal</td>
                     </thead>
                     @foreach ($datas as $data)
                         @if ($data->status == 1)
                             <tbody>
                                 <td>{{ $data->pertemuan->mapel }}</td>
-                                <td>{{ $data->pertemuan->pertemuan_ke }}</td>
+                                <td>{{ $data->pertemuan->pembahasan }}</td>
                                 <td>{{ $data->pertemuan->updated_at }}</td>
                             </tbody>
                         @endif
@@ -123,14 +123,14 @@ Data Kelas
                 <table class="table">
                     <thead>
                         <td>Mata Pelajaran</td>
-                        <td>Pertemuan</td>
-                        <td>Waktu</td>
+                        <td>Pembahasan</td>
+                        <td>Tanggal</td>
                     </thead>
                     @foreach ($datas as $data)
                         @if ($data->status == 2)
                             <tbody>
                                 <td>{{ $data->pertemuan->mapel }}</td>
-                                <td>{{ $data->pertemuan->pertemuan_ke }}</td>
+                                <td>{{ $data->pertemuan->pembahasan }}</td>
                                 <td>{{ $data->pertemuan->updated_at }}</td>
                             </tbody>
                         @endif
@@ -158,14 +158,14 @@ Data Kelas
                 <table class="table">
                     <thead>
                         <td>Mata Pelajaran</td>
-                        <td>Pertemuan</td>
-                        <td>Waktu</td>
+                        <td>Pembahasan</td>
+                        <td>Tanggal</td>
                     </thead>
                     @foreach ($datas as $data)
                         @if ($data->status == 0)
                             <tbody>
                                 <td>{{ $data->pertemuan->mapel }}</td>
-                                <td>{{ $data->pertemuan->pertemuan_ke }}</td>
+                                <td>{{ $data->pertemuan->pembahasan }}</td>
                                 <td>{{ $data->pertemuan->created_at }}</td>
                             </tbody>
                         @endif
