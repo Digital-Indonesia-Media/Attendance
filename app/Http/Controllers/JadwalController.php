@@ -26,6 +26,7 @@ class JadwalController extends Controller
     	$mapels = MataPelajaran::all();
         $gurus = User::where('role', 'guru')->get();
 
+        return $datas;
     	return view('jadwal.index', compact('datas', 'tahunAjarans', 'kelass', 'mapels', 'gurus'));
     }
 
