@@ -55,6 +55,13 @@
     </a>
   </li>
 
+  <li>
+    <a href="{{ route('kehadiran-index') }}">
+      <i class="fas fa-tasks"></i>
+      <p>Kehadiran</p>
+    </a>
+  </li>
+
   <li class="active">
     <a href="{{ route('admin-profile') }}">
       <i class="now-ui-icons users_single-02"></i>

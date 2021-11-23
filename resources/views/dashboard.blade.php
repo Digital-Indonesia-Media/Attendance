@@ -56,6 +56,13 @@ Tahun Pelajaran
   </li>
 
   <li>
+    <a href="{{ route('admin-kehadiran') }}">
+      <i class="now-ui-icons fa fa-tasks"></i>
+      <p>Kehadiran</p>
+    </a>
+  </li>
+
+  <li>
     <a href="{{ route('admin-profile') }}">
       <i class="now-ui-icons users_single-02"></i>
       <p>User Profile</p>

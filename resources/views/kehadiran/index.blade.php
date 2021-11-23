@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Kelas
+Pengguna
 @endsection
 
 @section('sidebar-nav')
@@ -27,7 +27,7 @@ Kelas
     </a>
   </li>
 
-  <li class="active">
+  <li>
     <a href="{{ route('kelas-index') }}">
       <i class="fas fa-warehouse"></i>
       <p>Kelas</p>
@@ -55,7 +55,7 @@ Kelas
     </a>
   </li>
 
-  <li>
+  <li  class="active">
     <a href="{{ route('kehadiran-index') }}">
       <i class="fas fa-tasks"></i>
       <p>Kehadiran</p>
@@ -82,36 +82,36 @@ Kelas
             <div class="card">
                 <div class="card-header">
                     <div class="float-left">
-                        <p>Kelas</p>
+                        <p>Kehadiran</p>
                     </div>
-                    <!-- Button trigger modal -->
-                    <div class="float-right">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            Tambah Data
-                        </button>
-                    </div>                
                 </div><br><br>
 
                 <div class="card-body">
                     <div>
                         <table class="table" style="margin-top: 25px;">
                             <thead>
+                                <td>Nama</td>
                                 <td>Kelas</td>
-                                <td>Tapel</td>
+                                <td>Mapel</td>
+                                <td>Pertemuan</td>
+                                <td>Status</td>
                                 <td class="center">Aksi</td>
-                            </thead>
+                            </tdead>
 
                             @foreach ($datas as $data)
                             <tbody>
-                                <td>{{ $data->kelas }}</td>
-                                <td>{{ $data->tapel }}</td>
+                                <td>{{ $data->user->name }}</td>
+                                <td>{{ $data->kelas->kelas }}</td>
+                                <td>{{ $data->mapel->mapel }}</td>
+                                <td>{{ $data->pertemuan->pertemuan_ke }}</td>
+                                <td>{{ $data->status }}</td>
                                 <td class="center">
-                                    <a href="{{ route('kelas-edit', $data->id) }}">
-                                        <button class="btn btn-warning" style="width: 100px; margin-top: 5px;">
+                                    <!-- <a href="{{ route('kehadiran-edit', $data->id) }}">
+                                        <button class="btn btn-warning">
                                             Edit
                                         </button>
-                                    </a>
-                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-danger" style="width: 100px; margin-top: 5px;">
+                                    </a> -->
+                                    <button onclick="hapus( {{$data->id}}  )" class="btn btn-danger" style="width: 85px; margin-top: 5px;">
                                         Delete
                                     </button>
                                 </td>
@@ -120,32 +120,6 @@ Kelas
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal untuk tambah data -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Kelas</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('kelas-import') }}" method="POST" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <div>
-                        <input type="file" name="file" required="">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Selesai</button>
-                <button type="submit" class="btn btn-primary">Import</button>
-                </form>
             </div>
         </div>
     </div>
@@ -160,27 +134,27 @@ Kelas
     <script>
         function hapus(id){
             Swal.fire({
-              title: 'Are you sure?',
-              text: 'You wan\'t be able to revert this!',
+              title: 'Apakah kamu yakin?',
+              text: 'Kamu tidak dapat memulihkan ini kembali!',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
+              confirmButtonText: 'Ya, hapus saja!'
             }).then((result) => {
               if (result.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: "{{route('kelas-delete')}}",
+                    url: "{{route('kehadiran-delete')}}",
                     data: {
                         _token: "{{ csrf_token() }}",
                         id:id
                     },
                     success: function (data) {
                         Swal.fire(
-                          'Deleted!',
-                          'Your file has been deleted.',
-                          'success'
+                          'Terhapus!',
+                          'File anda telah berhasil dihapus.',
+                          'Berhasil'
                         );
                         location.reload()
                     }         

@@ -81,6 +81,11 @@ Route::get('/pertemuan/{id}/edit', 'PertemuanController@edit')->name('pertemuan-
 Route::post('/pertemuan/update', 'PertemuanController@update')->name('pertemuan-update');
 Route::post('/pertemuan/delete', 'PertemuanController@delete')->name('pertemuan-delete');
 
+Route::get('/kehadiran', 'PertemuanController@kehadiran')->name('kehadiran-index');
+Route::get('/kehadiran/edit/{id}', 'PertemuanController@editKehadiran')->name('kehadiran-edit');
+Route::post('/kehadiran/update', 'PertemuanController@updateKehadiran')->name('kehadiran-update');
+Route::post('/kehadiran/delete', 'PertemuanController@deleteKehadiran')->name('kehadiran-delete');
+
 Route::group(['middleware' => ['admin']], function() {
 	Route::get('/admin', 'AdminController@index')->name('admin');
 	Route::get('/admin/profile', 'AdminController@profile')->name('admin-profile');

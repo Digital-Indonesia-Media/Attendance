@@ -56,9 +56,16 @@ Dashboard
   </li>
 
   <li>
+    <a href="{{ route('kehadiran-index') }}">
+      <i class="fas fa-tasks"></i>
+      <p>Kehadiran</p>
+    </a>
+  </li>
+
+  <li>
     <a href="{{ route('admin-profile') }}">
       <i class="now-ui-icons users_single-02"></i>
-      <p>Profil Pengguna</p>
+      <p>Profil Admin</p>
     </a>
   </li>
 </ul>
@@ -184,6 +191,25 @@ Dashboard
                 </div>
             </a>
         </div>
+
+        <div class="col-md-6">
+            <a href="{{ route('kehadiran-index') }}">
+                <div class="card" style="background-color: #20c997; min-height: 160px; color: #fff;">
+                    <div class="row">
+                        <div class="col-md-4" style="margin: 20px 0px 0px 0px; padding-left: 50px;">
+                            <i class="fas fa-tasks" style="font-size: 7rem; color: #fff;"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-header">{{ __('Kehadiran') }}</div>
+
+                            <div class="card-body">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>        
     </div>
 </div>
 @endsection

@@ -54,10 +54,6 @@ Pertemuan
                             <td class="center inline">
                                 @if ($pertemuan->status == 0)
                                     <p style="color:#f96332; padding-top: 17px;">Belum dipublish oleh Guru Mapel</p>
-                                @elseif($pertemuan->kehadiran() == 0)
-                                    <div style="margin: auto;">
-                                        <p style="color:#ff3636; padding-top: 17px;">Alfa</p>
-                                    </div>
                                 @elseif($pertemuan->kehadiran() == 1)
                                     <div style="margin: auto;">
                                         <p style="color:#18ce0f; padding-top: 17px;">Hadir</p>

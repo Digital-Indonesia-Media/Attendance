@@ -33,7 +33,7 @@ class UserController extends Controller
     {
         $tahunAjarans = TahunAjaran::where('status', 1)->first();
         $tapels = TahunAjaran::all();
-        $datas = User::where('role', 'guru')->get();
+        $datas = User::where('role', 'guru')->orWhere('role', 'ortu')->get();
         $kelass = Kelas::where('tapel', $tahunAjarans->tapel)->get();
 
         return view('user.index', compact('tahunAjarans', 'datas', 'kelass', 'tapels'));
@@ -52,7 +52,7 @@ class UserController extends Controller
     public function siswa($id)
     {
         $kelass = Kelas::where('id', $id)->get();
-        $datas = User::where('role', 'siswa')->Where('kelas', $kelass[0]->kelas)->get();
+        $datas = User::where('role', 'siswa')->where('kelas', $kelass[0]->kelas)->get();
 
         return view('user.siswa', compact('datas', 'kelass',));
     }

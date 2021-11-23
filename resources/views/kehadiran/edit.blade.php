@@ -90,20 +90,14 @@ Pengguna
                     @endif
 
                     <div class="content">
-						<form action="{{ route('user-update', ) }}" method="POST">
-							@csrf
-							@method('PUT')
-							<input type="hidden" name="id" value="{{ $data->id }}">
+                        <form action="{{ route('user-update', ) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="id" value="{{ $data->id }}">
               <div>
                   <div>
                       <label>Name</label>
                       <input class="form-control" type="text" name="name" value="{{ $data->name }}">
-                  </div>
-                  <br>
-
-                  <div>
-                      <label>Kelas</label>
-                      <input class="form-control" type="text" name="kelas" value="{{ $data->kelas }}">
                   </div>
                   <br>
 
@@ -125,11 +119,48 @@ Pengguna
 
                   <button class="form-control btn btn-primary">Perbarui</button>
               </div>
-						</form>
-					</div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+    <script src=" {{ asset('js/jquery-3.4.1.min.js') }} "></script>
+    <script src=" {{ asset('js/sweetalert2.all.min.js') }} "></script>
+    <script>
+        function hapus(id){
+            Swal.fire({
+              title: 'Apakah kamu yakin?',
+              text: 'Kamu tidak dapat memulihkan ini kembali!',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Ya, hapus saja!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('kehadiran-delete')}}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id:id
+                    },
+                    success: function (data) {
+                        Swal.fire(
+                          'Terhapus!',
+                          'File anda telah berhasil dihapus.',
+                          'Berhasil'
+                        );
+                        location.reload()
+                    }         
+                });
+              }
+            })
+        }
+    </script>
 @endsection

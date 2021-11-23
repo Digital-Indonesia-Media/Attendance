@@ -8,6 +8,7 @@ use App\Models\TahunAjaran;
 use App\Models\Kelas;
 use App\Models\MataPelajaran;
 use App\Models\Pertemuan;
+use App\Models\Kehadiran;
 use App\Imports\PertemuanImport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -101,5 +102,41 @@ class PertemuanController extends Controller
     {
         Excel::import(new PertemuanImport, $request->file('file'));
         return redirect()->back();
+    }
+
+    public function kehadiran()
+    {
+        $datas = Kehadiran::all();
+        $tahunAjarans = TahunAjaran::where('status', 1)->orWhere('status', 0)->get();
+        $kelass = Kelas::all();
+        $mapels = MataPelajaran::all();
+        $pertemuans = Pertemuan::all();
+
+        // return $datas;
+        return view('kehadiran.index', compact('datas', ));
+    }
+
+    public function editKehadiran($id)
+    {
+        $data = Kehadiran::find($id);
+
+        return view('kehadiran.edit', compact('data'));
+    }
+
+    public function updateKehadiran(Request $request)
+    {
+        // dd($request);
+        Pertemuan::where('id', $request->id)->update([
+            'mapel' => $request->mapel,
+            'pertemuan_ke' => $request->pertemuan_ke,
+            'pembahasan' => $request->pembahasan,
+        ]);
+        return redirect()->route('pertemuan-index');
+    }
+
+    public function deleteKehadiran(Request $request)
+    {
+        Kehdairan::where('id', $request->id)->delete();
+        return redirect()->back();    
     }
 }
