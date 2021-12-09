@@ -56,7 +56,7 @@ Tahun Pelajaran
   </li>
 
   <li>
-    <a href="{{ route('admin-kehadiran') }}">
+    <a href="{{ route('kehadiran-index') }}">
       <i class="now-ui-icons fa fa-tasks"></i>
       <p>Kehadiran</p>
     </a>

@@ -63,7 +63,7 @@ Dashboard
   </li>
 
   <li>
-    <a href="{{ route('admin-profile') }}">
+    <a href="{{ route('kehadiran-index') }}">
       <i class="now-ui-icons users_single-02"></i>
       <p>Profil Admin</p>
     </a>
